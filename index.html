@@ -3,198 +3,313 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>האומן מטבחים — 3 אופציות עיצוב</title>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>האומן מטבחים — 3 קונספטים</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Frank+Ruhl+Libre:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0 !important; }
     body {
       font-family: 'Heebo', sans-serif;
-      background: #faf7f2;
+      background: #f0e9dd;
       color: #1a1a1a;
       min-height: 100vh;
       padding: 80px 40px;
     }
     .wrap { max-width: 1320px; margin: 0 auto; }
-    .head { text-align: center; margin-bottom: 60px; }
+
+    .head {
+      text-align: center; margin-bottom: 50px;
+      padding-bottom: 30px; border-bottom: 3px double #1a1a1a;
+    }
     .head .eye {
-      font-size: 12px; letter-spacing: .35em; color: #b08658;
+      font-size: 11px; letter-spacing: .35em; color: #a07640;
       text-transform: uppercase; margin-bottom: 14px;
     }
     .head h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(38px, 5vw, 60px); font-weight: 500;
-      line-height: 1.1; margin-bottom: 14px;
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: clamp(40px, 6vw, 70px); font-weight: 500;
+      line-height: 1; margin-bottom: 14px;
     }
-    .head h1 em { color: #b08658; font-style: italic; }
-    .head p { color: #666; font-size: 17px; max-width: 620px; margin: 0 auto; }
+    .head h1 em { color: #a07640; font-style: italic; }
+    .head p { color: #555; font-size: 16px; max-width: 660px; margin: 0 auto; }
 
-    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
     .card {
       background: #fff;
-      border-top: 4px solid #b08658;
+      border: 1px solid #1a1a1a;
       overflow: hidden;
-      transition: transform .3s, box-shadow .3s;
       display: flex; flex-direction: column;
+      transition: transform .3s;
     }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,.1); }
+    .card:hover { transform: translateY(-6px); }
+
     .preview {
       height: 280px;
-      display: grid; place-items: center;
-      color: #fff; position: relative;
+      position: relative;
       overflow: hidden;
     }
-    .p1 {
-      background:
-        linear-gradient(rgba(26,26,26,.35), rgba(26,26,26,.6)),
-        url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80') center/cover;
-    }
-    .p2 {
-      background:
-        linear-gradient(rgba(14,14,14,.6), rgba(14,14,14,.85)),
-        url('https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&w=900&q=80') center/cover;
-    }
-    .p3 {
-      background: linear-gradient(135deg, #faf7f2 0%, #f4efe7 100%);
-      color: #1a1a1a;
-    }
-    .preview .tag {
-      position: absolute; top: 16px; right: 16px;
-      padding: 6px 12px; background: rgba(0,0,0,.6);
-      font-size: 11px; letter-spacing: .25em; color: #c9a47a;
-    }
-    .p3 .tag { background: #fff; }
-    .preview .ttl {
-      font-family: 'Playfair Display', serif;
-      font-size: 36px; font-weight: 500; text-align: center;
-      line-height: 1.1;
-    }
-    .preview .ttl em { color: #c9a47a; font-style: italic; }
-    .p3 .ttl em { color: #b08658; }
 
-    .body { padding: 28px; flex: 1; display: flex; flex-direction: column; }
+    /* CARD 1 — BENTO preview */
+    .p1 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 4px;
+      padding: 8px;
+      background: #f0e9dd;
+    }
+    .p1 > div {
+      background: #1a1a1a;
+    }
+    .p1 .t1 { grid-column: span 2; grid-row: span 2; background: #1a1a1a; }
+    .p1 .t2 { grid-column: span 2; grid-row: span 1; background: #b08658; }
+    .p1 .t3 { grid-column: span 1; grid-row: span 2; background: #fff; border: 1px solid #1a1a1a; }
+    .p1 .t4 { grid-column: span 1; grid-row: span 1; background: #1a1a1a; }
+    .p1 .t5 { grid-column: span 2; grid-row: span 1; background: #e8e1d2; }
+    .p1 .t6 { grid-column: span 4; grid-row: span 1; background: #1a1a1a; }
+
+    /* CARD 2 — Fullscreen preview */
+    .p2 {
+      background: #0d0d0d;
+      color: #fff;
+      display: flex; flex-direction: column;
+    }
+    .p2 .seg {
+      flex: 1;
+      display: flex; align-items: center; justify-content: center;
+      border-bottom: 1px solid #2a2a2a;
+      font-family: 'Frank Ruhl Libre', serif;
+      font-weight: 500;
+    }
+    .p2 .seg:last-child { border-bottom: none; }
+    .p2 .s1 { font-size: 32px; }
+    .p2 .s1 em { color: #c9a165; font-style: italic; font-weight: 400; }
+    .p2 .s2 {
+      background:
+        linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.7)),
+        url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=600&q=70') center/cover;
+      font-size: 14px;
+      font-style: italic;
+    }
+    .p2 .s3 {
+      font-size: 60px; line-height: 1;
+      color: #c9a165;
+    }
+    .p2 .dots {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .p2 .dots span { width: 6px; height: 6px; background: rgba(255,255,255,.3); }
+    .p2 .dots span.on { background: #c9a165; }
+
+    /* CARD 3 — Editorial preview */
+    .p3 {
+      background: #f4ede0;
+      color: #1a1a1a;
+      padding: 16px;
+      display: flex; flex-direction: column;
+    }
+    .p3 .head-bar {
+      display: flex; justify-content: space-between;
+      font-size: 8px; letter-spacing: .25em;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #1a1a1a;
+      margin-bottom: 8px;
+    }
+    .p3 .title {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 56px; font-weight: 700;
+      text-align: center; line-height: .85;
+      letter-spacing: -.04em;
+      padding-bottom: 6px;
+      border-bottom: 3px double #1a1a1a;
+      margin-bottom: 12px;
+    }
+    .p3 .cols {
+      flex: 1;
+      display: grid; grid-template-columns: 1fr 2fr 1fr;
+      gap: 10px;
+      font-size: 8px;
+      line-height: 1.4;
+    }
+    .p3 .col {
+      border-left: 1px solid #1a1a1a;
+      padding-left: 8px;
+    }
+    .p3 .col:first-child { border-left: none; padding-left: 0; padding-right: 8px; border-right: 1px solid #1a1a1a; }
+    .p3 .ml { background: linear-gradient(135deg, #d4c69e 0%, #b08658 100%); height: 60px; margin-bottom: 6px; }
+    .p3 .lines { height: 6px; background: #1a1a1a; margin-bottom: 3px; }
+    .p3 .lines.s { width: 80%; }
+    .p3 .lines.t { background: #b08658; }
+
+    .preview .tag {
+      position: absolute; top: 14px; right: 14px;
+      padding: 5px 10px; background: #fff;
+      font-size: 10px; letter-spacing: .25em; color: #1a1a1a;
+      border: 1px solid #1a1a1a;
+      z-index: 2;
+    }
+    .p2 .tag { background: #0d0d0d; color: #c9a165; border-color: #c9a165; }
+
+    .body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
     .num {
-      font-family: 'Playfair Display', serif;
-      font-size: 13px; color: #b08658; letter-spacing: .25em;
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 12px; color: #a07640; letter-spacing: .25em;
       margin-bottom: 8px;
     }
     .name {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Frank Ruhl Libre', serif;
       font-size: 26px; font-weight: 500;
-      margin-bottom: 12px;
+      margin-bottom: 12px; line-height: 1.05;
     }
-    .desc { color: #555; font-size: 14.5px; margin-bottom: 22px; flex: 1; }
-    .meta {
-      display: flex; gap: 8px; flex-wrap: wrap;
-      margin-bottom: 24px;
+    .name em { color: #a07640; font-style: italic; }
+    .desc { color: #555; font-size: 14px; margin-bottom: 18px; flex: 1; }
+    .key-points { margin-bottom: 22px; }
+    .key-points li {
+      list-style: none; padding: 6px 0;
+      border-bottom: 1px dashed #d8d0bf;
+      font-size: 12.5px;
+      display: flex; justify-content: space-between;
     }
-    .meta span {
-      padding: 5px 12px;
-      background: #faf7f2;
-      font-size: 12px; color: #666;
-      letter-spacing: .05em;
-    }
+    .key-points li:last-child { border-bottom: none; }
+    .key-points li b { color: #1a1a1a; }
+    .key-points li span { color: #777; }
+
     .open {
       display: inline-flex; align-items: center; gap: 12px;
       padding: 14px 22px;
       background: #1a1a1a; color: #fff;
-      font-size: 14px; text-decoration: none;
-      letter-spacing: .05em;
+      font-size: 13px; text-decoration: none;
+      letter-spacing: .15em; text-transform: uppercase;
       transition: background .25s;
+      justify-content: center;
     }
-    .open:hover { background: #b08658; }
-    .open::after { content: "←"; }
+    .open:hover { background: #a07640; }
+    .open::after { content: "→"; }
 
-    .info {
-      max-width: 1320px; margin: 60px auto 0;
-      padding: 32px;
-      background: #1a1a1a; color: #ccc;
-      font-size: 14px;
+    .footnote {
+      max-width: 1320px; margin: 40px auto 0;
+      padding: 28px; background: #1a1a1a; color: #ccc;
+      font-size: 13.5px; line-height: 1.7;
     }
-    .info strong { color: #c9a47a; display: block; margin-bottom: 10px; letter-spacing: .15em; font-size: 12px; }
-    .info ul { list-style: none; display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
-    .info li::before { content: "• "; color: #b08658; }
+    .footnote b { color: #c9a165; }
 
     @media (max-width: 960px) {
-      .grid { grid-template-columns: 1fr; }
-      .info ul { grid-template-columns: 1fr 1fr; }
+      body { padding: 40px 20px; }
+      .grid { grid-template-columns: 1fr; gap: 20px; }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="head">
-      <div class="eye">— Haoman Kitchens · 3 Design Concepts</div>
-      <h1>שלוש <em>אופציות עיצוב</em> לאתר.</h1>
-      <p>אותו DNA של צבעים — שחור, זהב, קרם. שלוש שפות עיצוב שונות, ללא קצוות עגולים בשום מקום.</p>
+      <div class="eye">— Haoman Kitchens · 3 Distinct Concepts</div>
+      <h1>שלוש <em>גישות מבנה</em> שונות לחלוטין.</h1>
+      <p>לא 3 וריאציות צבע על אותה שבלונה — 3 ארכיטקטורות עמוד שונות. אותם תוכן, צבעים וערכים — מבנים אחרים לגמרי.</p>
     </div>
 
     <div class="grid">
+
+      <!-- CARD 1 — BENTO -->
       <div class="card">
         <div class="preview p1">
-          <div class="tag">OPTION 01</div>
-          <div class="ttl">Heritage <em>Classic</em></div>
+          <span class="tag">01 · BENTO</span>
+          <div class="t1"></div>
+          <div class="t2"></div>
+          <div class="t3"></div>
+          <div class="t4"></div>
+          <div class="t5"></div>
+          <div class="t6"></div>
         </div>
         <div class="body">
-          <div class="num">01 / קלאסי-יוקרתי</div>
-          <h3 class="name">Heritage Classic</h3>
-          <p class="desc">קרוב למקור, מעודן ויוקרתי. Hero דרמטי במלוא המסך, רצועה שחורה עם 4 יתרונות, סקשנים מאוזנים, מסגרת זהב סביב תמונות.</p>
-          <div class="meta">
-            <span>Hero מלא מסך</span>
-            <span>שחור + זהב חם</span>
-            <span>Frank Ruhl Libre</span>
-            <span>סדר סימטרי</span>
-          </div>
-          <a class="open" href="./option-1/index.html" target="_blank">פתח אופציה 1</a>
+          <div class="num">01 / Bento Grid</div>
+          <h3 class="name">Bento <em>Asymmetric.</em></h3>
+          <p class="desc">בלי hero. בלי סקשנים מסורתיים. כל הדף הוא גריד אריחים בגדלים שונים — קטגוריה גדולה ליד מספר ענק ליד ציטוט ליד טופס. עין הצופה קופצת, לא גוללת.</p>
+          <ul class="key-points">
+            <li><b>מבנה</b><span>גריד 12 עמודות</span></li>
+            <li><b>אריחים</b><span>15+ בגדלים אסימטריים</span></li>
+            <li><b>ניווט</b><span>גלולה צפה במרכז</span></li>
+            <li><b>השראה</b><span>Apple Bento · Linear</span></li>
+          </ul>
+          <a class="open" href="./option-1/index.html" target="_blank">פתח אופציה 01</a>
         </div>
       </div>
 
+      <!-- CARD 2 — FULLSCREEN -->
       <div class="card">
         <div class="preview p2">
-          <div class="tag">OPTION 02</div>
-          <div class="ttl">Editorial <em>Dark</em></div>
+          <span class="tag">02 · PANELS</span>
+          <div class="dots"><span class="on"></span><span></span><span></span><span></span></div>
+          <div class="seg s1">אומנות <em>המטבח.</em></div>
+          <div class="seg s2">"כל מטבח נבנה מתוך הקשבה..."</div>
+          <div class="seg s3">1,200+</div>
         </div>
         <div class="body">
-          <div class="num">02 / מגזיני-דרמטי</div>
-          <h3 class="name">Editorial Dark</h3>
-          <p class="desc">בהשראת avivi.com. רקעים שחורים גדולים, סקשנים אסימטריים מתחלפים, טיפוגרפיה איטלית מגזינית, מספרים גדולים ורווח אוויר.</p>
-          <div class="meta">
-            <span>אסימטרי</span>
-            <span>שחור עמוק</span>
-            <span>Cormorant Garamond</span>
-            <span>Editorial Layout</span>
-          </div>
-          <a class="open" href="./option-2/index.html" target="_blank">פתח אופציה 2</a>
+          <div class="num">02 / Scroll-Snap</div>
+          <h3 class="name">Fullscreen <em>Panels.</em></h3>
+          <p class="desc">כל "סקשן" הוא 100vh עם משפט אחד דרמטי. scroll-snap מצמיד את הצופה לכל פאנל. כמו לדפדף ספר עיצוב או מצגת תערוכה. מינימליזם קיצוני.</p>
+          <ul class="key-points">
+            <li><b>מבנה</b><span>7 פאנלים מלאי מסך</span></li>
+            <li><b>אינטראקציה</b><span>scroll-snap mandatory</span></li>
+            <li><b>ניווט</b><span>נקודות בצד + מונה</span></li>
+            <li><b>השראה</b><span>Apple Air · Awwwards</span></li>
+          </ul>
+          <a class="open" href="./option-2/index.html" target="_blank">פתח אופציה 02</a>
         </div>
       </div>
 
+      <!-- CARD 3 — EDITORIAL -->
       <div class="card">
         <div class="preview p3">
-          <div class="tag">OPTION 03</div>
-          <div class="ttl">Light <em>Atelier</em></div>
+          <span class="tag">03 · EDITORIAL</span>
+          <div class="head-bar">
+            <span>VOL. XXIII</span>
+            <span>EST. 2003</span>
+            <span>N°24</span>
+          </div>
+          <div class="title">HAOMAN<span style="color:#a07640">.</span></div>
+          <div class="cols">
+            <div class="col">
+              <div class="lines"></div>
+              <div class="lines s"></div>
+              <div class="lines t"></div>
+              <div class="lines"></div>
+              <div class="lines s"></div>
+            </div>
+            <div class="col">
+              <div class="ml"></div>
+              <div class="lines"></div>
+              <div class="lines s"></div>
+              <div class="lines"></div>
+            </div>
+            <div class="col">
+              <div class="lines"></div>
+              <div class="lines s"></div>
+              <div class="lines"></div>
+              <div class="lines t"></div>
+              <div class="lines s"></div>
+            </div>
+          </div>
         </div>
         <div class="body">
-          <div class="num">03 / בהיר-מינימליסטי</div>
-          <h3 class="name">Light Atelier</h3>
-          <p class="desc">רקע קרם דומיננטי, שחור לטקסט, זהב כהדגשה עדינה. נקי ומודרני, גריד מטבחים בכרטיסי תמונה, marquee וטיפוגרפיה מבוססת Playfair.</p>
-          <div class="meta">
-            <span>בהיר ואווריר</span>
-            <span>קרם + שחור</span>
-            <span>Playfair Display</span>
-            <span>Cards Layout</span>
-          </div>
-          <a class="open" href="./option-3/index.html" target="_blank">פתח אופציה 3</a>
+          <div class="num">03 / Print Magazine</div>
+          <h3 class="name">Editorial <em>Brutalist.</em></h3>
+          <p class="desc">מבנה של מגזין הדפסה — masthead, multi-column, drop-cap, pull-quotes ומסגרות שחורות. הטיפוגרפיה היא הגיבור, התמונות בתפקיד משנה. תחושה תקתקנית של עיתון לוקסוס.</p>
+          <ul class="key-points">
+            <li><b>מבנה</b><span>masthead + multi-column</span></li>
+            <li><b>טיפוגרפיה</b><span>Frank Ruhl Libre כותרות</span></li>
+            <li><b>פרטים</b><span>drop-cap, pull-quote, classified</span></li>
+            <li><b>השראה</b><span>NYT · Wallpaper · Apartamento</span></li>
+          </ul>
+          <a class="open" href="./option-3/index.html" target="_blank">פתח אופציה 03</a>
         </div>
       </div>
+
     </div>
 
-    <div class="info">
-      <strong>— מה משותף ל-3 האופציות</strong>
-      <ul>
-        <li>פלטת צבעים זהה: שחור (#1a1a1a), זהב (#b08658), קרם, לבן</li>
-        <li>אפס border-radius — כל הקצוות חדים</li>
-        <li>RTL מלא בעברית + תמיכה מובייל</li>
-        <li>אותו תוכן ליבה: 3 קטגוריות, 4 יתרונות, המלצות, טופס</li>
-      </ul>
+    <div class="footnote">
+      <b>מה שמשותף לכל ה-3 — </b>אותו DNA של מותג: שחור (#0d0d0d), זהב (#a07640–#c9a165), קרם (#f0e9dd–#f4ede0). אפס border-radius בכל מקום. אותו תוכן (3 קטגוריות, 4 ערכים, 3 המלצות, טופס). RTL מלא + מותאם מובייל.<br><br>
+      <b>מה שונה — </b>הכל. ארכיטקטורת העמוד, סדר הקריאה, אינטראקציית הגלילה, היחס בין טקסט לתמונה, ואופן הצגת המידע. תבחר את האחת שמדברת אליך — או תגיד לי לערבב אלמנטים מ-2 מהן.
     </div>
   </div>
 </body>

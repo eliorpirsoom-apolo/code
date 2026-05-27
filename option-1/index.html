@@ -3,25 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>האומן מטבחים — אומנות המטבח בהתאמה אישית</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&family=Frank+Ruhl+Libre:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <title>האומן מטבחים — Bento Grid</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Frank+Ruhl+Libre:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
-    /* ===== OPTION 1 — HERITAGE CLASSIC =====
-       קרוב למקור, מעודן, יוקרתי. שחור + זהב חם.
-       אפס border-radius בכל מקום. */
+    /* ===== OPTION 1 — BENTO GRID =====
+       אין hero מסורתי. אין סקשנים. רק רשת אריחים אסימטרית
+       שמרכיבה את כל העמוד. עין הצופה קופצת, לא גוללת. */
 
     :root {
-      --black: #1a1a1a;
-      --black-soft: #2a2a2a;
-      --gold: #b98e5c;
-      --gold-dark: #a07640;
-      --cream: #f5f1ea;
-      --gray-card: #f4f4f4;
-      --text: #2a2a2a;
-      --muted: #6b6b6b;
-      --white: #ffffff;
+      --black: #111;
+      --gold: #b08658;
+      --cream: #f0e9dd;
+      --paper: #e8e1d2;
+      --line: #d8d0bf;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,573 +24,522 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Heebo', sans-serif;
-      color: var(--text);
-      background: var(--white);
-      line-height: 1.7;
+      background: var(--cream);
+      color: var(--black);
+      line-height: 1.55;
       -webkit-font-smoothing: antialiased;
     }
+    .serif { font-family: 'Frank Ruhl Libre', serif; font-weight: 500; }
     img { max-width: 100%; display: block; }
     a { color: inherit; text-decoration: none; }
-    .display { font-family: 'Frank Ruhl Libre', serif; font-weight: 500; }
 
-    /* ===== HEADER ===== */
-    header {
-      position: fixed; top: 0; right: 0; left: 0;
-      background: rgba(26,26,26,.92);
-      backdrop-filter: blur(10px);
+    /* === floating menu === */
+    .menu-pill {
+      position: fixed; top: 24px; left: 50%; transform: translateX(-50%);
       z-index: 100;
-      border-bottom: 1px solid rgba(185,142,92,.25);
+      background: var(--black); color: #fff;
+      padding: 14px 24px;
+      display: flex; gap: 30px; align-items: center;
+      font-size: 13px; letter-spacing: .15em;
     }
-    .nav {
-      max-width: 1280px; margin: 0 auto;
-      padding: 18px 32px;
-      display: flex; align-items: center; justify-content: space-between;
-      color: #fff;
+    .menu-pill .dot { width: 6px; height: 6px; background: var(--gold); }
+    .menu-pill a:hover { color: var(--gold); }
+
+    /* === BENTO GRID === */
+    .bento {
+      max-width: 1500px; margin: 0 auto;
+      padding: 100px 24px 24px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 110px;
+      gap: 12px;
     }
-    .logo {
-      display: flex; align-items: center; gap: 12px;
-      letter-spacing: .04em;
+
+    .tile {
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
     }
-    .logo-mark {
-      width: 38px; height: 38px;
-      border: 1.5px solid var(--gold);
-      display: grid; place-items: center;
-      color: var(--gold);
-      font-weight: 800;
+
+    /* tile colors / variants */
+    .t-black { background: var(--black); color: #fff; }
+    .t-cream { background: #fff; color: var(--black); }
+    .t-paper { background: var(--paper); color: var(--black); }
+    .t-gold  { background: var(--gold); color: #fff; }
+    .t-img   { background-size: cover; background-position: center; color: #fff; }
+
+    /* tile placements */
+    .t-brand    { grid-column: span 4; grid-row: span 2; }
+    .t-headline { grid-column: span 8; grid-row: span 4; }
+    .t-stat-1   { grid-column: span 4; grid-row: span 2; }
+    .t-hero-img { grid-column: span 5; grid-row: span 5; }
+    .t-about    { grid-column: span 7; grid-row: span 3; }
+    .t-cta-pill { grid-column: span 7; grid-row: span 2; }
+    .t-quote    { grid-column: span 12; grid-row: span 3; }
+    .t-cat-1    { grid-column: span 5; grid-row: span 5; }
+    .t-cat-2    { grid-column: span 4; grid-row: span 5; }
+    .t-cat-3    { grid-column: span 3; grid-row: span 5; }
+    .t-val-1, .t-val-2, .t-val-3, .t-val-4 { grid-column: span 3; grid-row: span 2; }
+    .t-process  { grid-column: span 12; grid-row: span 3; }
+    .t-test-1   { grid-column: span 4; grid-row: span 3; }
+    .t-test-2   { grid-column: span 4; grid-row: span 3; }
+    .t-test-3   { grid-column: span 4; grid-row: span 3; }
+    .t-form     { grid-column: span 8; grid-row: span 4; }
+    .t-info     { grid-column: span 4; grid-row: span 4; }
+    .t-footer   { grid-column: span 12; grid-row: span 1; }
+
+    /* tile content styles */
+    .tile h1, .tile h2, .tile h3 {
       font-family: 'Frank Ruhl Libre', serif;
+      font-weight: 500; line-height: .98;
+      letter-spacing: -.01em;
     }
-    .logo-text { line-height: 1.1; font-size: 13px; letter-spacing: .25em; color: #ddd; }
-    .logo-text b { display: block; font-size: 17px; color: #fff; letter-spacing: .15em; font-weight: 600; }
-
-    nav ul { display: flex; gap: 36px; list-style: none; font-size: 15px; }
-    nav a {
-      position: relative; padding: 6px 0;
-      transition: color .2s;
-    }
-    nav a::after {
-      content: ""; position: absolute; right: 0; bottom: 0;
-      height: 2px; width: 0; background: var(--gold); transition: width .25s;
-    }
-    nav a:hover { color: var(--gold); }
-    nav a:hover::after { width: 100%; }
-
-    .nav-cta {
-      padding: 10px 22px;
-      background: var(--gold); color: #fff; font-weight: 500; font-size: 14px;
-      transition: background .2s;
-    }
-    .nav-cta:hover { background: var(--gold-dark); }
-
-    /* ===== HERO ===== */
-    .hero {
-      position: relative; height: 100vh; min-height: 640px;
-      background:
-        linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.55)),
-        url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=2000&q=80') center/cover;
-      color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      text-align: center;
-    }
-    .hero-inner { max-width: 900px; padding: 0 32px; }
-    .hero .eyebrow {
-      display: inline-block;
-      padding: 6px 18px;
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      font-size: 13px; letter-spacing: .25em;
-      margin-bottom: 28px;
-    }
-    .hero h1 {
-      font-family: 'Frank Ruhl Libre', serif;
-      font-size: clamp(40px, 6vw, 78px);
-      font-weight: 500;
-      line-height: 1.1;
+    .label {
+      font-size: 11px; letter-spacing: .3em;
+      opacity: .7; text-transform: uppercase;
       margin-bottom: 18px;
     }
-    .hero h1 span { color: var(--gold); display: block; }
-    .hero p {
-      max-width: 620px; margin: 0 auto 40px;
-      font-size: 17px; color: #e8e8e8;
-    }
-    .btn {
-      display: inline-block;
-      padding: 16px 38px;
-      background: var(--gold); color: #fff;
-      font-size: 15px; font-weight: 500; letter-spacing: .08em;
-      border: 1px solid var(--gold);
-      transition: all .25s;
-      cursor: pointer;
-    }
-    .btn:hover { background: transparent; color: var(--gold); }
-    .btn.ghost { background: transparent; border-color: #fff; color: #fff; }
-    .btn.ghost:hover { background: #fff; color: var(--black); }
-    .hero-scroll {
-      position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-      color: #fff; font-size: 12px; letter-spacing: .3em; opacity: .8;
-    }
-    .hero-scroll::after {
-      content: ""; display: block; width: 1px; height: 50px;
-      background: var(--gold); margin: 12px auto 0;
+    .corner-label {
+      position: absolute; top: 16px; left: 16px;
+      font-size: 11px; letter-spacing: .25em;
+      opacity: .6;
     }
 
-    /* ===== SECTION BASE ===== */
-    section { padding: 110px 32px; }
-    .container { max-width: 1280px; margin: 0 auto; }
-    .section-eyebrow {
-      color: var(--gold); font-size: 13px; letter-spacing: .3em;
-      margin-bottom: 14px;
+    /* BRAND tile */
+    .t-brand {
+      display: flex; flex-direction: column; justify-content: space-between;
     }
-    .section-title {
+    .brand-mark {
       font-family: 'Frank Ruhl Libre', serif;
-      font-size: clamp(32px, 4vw, 52px);
-      font-weight: 500;
-      line-height: 1.15;
-      margin-bottom: 24px;
-      color: var(--black);
+      font-size: 60px; line-height: 1; color: var(--gold);
     }
-    .section-title .accent { color: var(--gold); }
-    .divider {
-      width: 60px; height: 2px; background: var(--gold);
-      margin: 0 0 28px;
+    .t-brand .name { font-size: 18px; letter-spacing: .15em; }
+    .t-brand .sub { font-size: 12px; opacity: .6; letter-spacing: .2em; margin-top: 4px; }
+
+    /* HEADLINE tile */
+    .t-headline {
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .t-headline h1 {
+      font-size: clamp(48px, 7vw, 110px);
+    }
+    .t-headline h1 em {
+      font-style: italic; color: var(--gold);
+    }
+    .t-headline .lead {
+      max-width: 540px; margin-top: 24px;
+      font-size: 16px; opacity: .85;
     }
 
-    /* ===== ABOUT ===== */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 80px;
-      align-items: center;
+    /* STAT tiles */
+    .t-stat-1 {
+      display: flex; flex-direction: column; justify-content: space-between;
     }
-    .about-text p {
-      color: #4a4a4a; margin-bottom: 16px; font-size: 16.5px;
-    }
-    .about-image {
-      position: relative;
-      height: 560px;
-      background: url('https://images.unsplash.com/photo-1556909190-eccf4a8bf97a?auto=format&fit=crop&w=1200&q=80') center/cover;
-    }
-    .about-image::before {
-      content: ""; position: absolute;
-      inset: -20px -20px 20px 20px;
-      border: 2px solid var(--gold);
-      z-index: -1;
-    }
-
-    /* ===== CATEGORIES ===== */
-    .categories {
-      background: var(--cream);
-    }
-    .cat-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 50px;
-    }
-    .cat {
-      position: relative; height: 460px; overflow: hidden;
-      cursor: pointer;
-    }
-    .cat img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform .6s ease;
-    }
-    .cat:hover img { transform: scale(1.08); }
-    .cat-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,.85) 100%);
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 30px; color: #fff;
-    }
-    .cat-overlay h3 {
+    .stat-num {
       font-family: 'Frank Ruhl Libre', serif;
-      font-size: 28px; font-weight: 500;
-      margin-bottom: 6px;
-    }
-    .cat-overlay p { font-size: 14px; opacity: .85; }
-    .cat-tag {
-      position: absolute; top: 24px; right: 24px;
-      background: var(--gold); color: #fff;
-      padding: 6px 14px; font-size: 12px; letter-spacing: .15em;
-    }
-
-    /* ===== BENEFITS (dark strip) ===== */
-    .benefits {
-      background: var(--black); color: #fff;
-      padding: 90px 32px;
-    }
-    .benefits-grid {
-      max-width: 1280px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 40px;
-    }
-    .benefit {
-      text-align: center;
-      padding: 20px;
-      border-right: 1px solid rgba(255,255,255,.1);
-    }
-    .benefit:last-child { border-right: none; }
-    .benefit .icon {
-      width: 60px; height: 60px; margin: 0 auto 20px;
-      border: 1.5px solid var(--gold);
-      display: grid; place-items: center;
+      font-size: 90px; line-height: .85;
       color: var(--gold);
     }
-    .benefit h4 {
-      font-size: 17px; font-weight: 500; margin-bottom: 8px;
-      color: #fff;
+    .t-stat-1 .lbl {
+      font-size: 13px; letter-spacing: .2em;
+      margin-top: 8px;
     }
-    .benefit p { font-size: 13.5px; color: #b8b8b8; }
 
-    /* ===== PROCESS ===== */
-    .process-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      margin-top: 50px;
-      border-top: 1px solid #e5e0d6;
-      border-bottom: 1px solid #e5e0d6;
+    /* HERO IMG */
+    .t-hero-img {
+      background-image:
+        linear-gradient(180deg, transparent 50%, rgba(0,0,0,.7) 100%),
+        url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1200&q=80');
+      display: flex; flex-direction: column; justify-content: flex-end;
     }
-    .step {
-      padding: 36px 26px;
-      border-left: 1px solid #e5e0d6;
-    }
-    .step:first-child { border-left: none; }
-    .step-num {
+    .t-hero-img .img-cap {
       font-family: 'Frank Ruhl Libre', serif;
-      font-size: 56px; color: var(--gold); line-height: 1;
-      margin-bottom: 16px; font-weight: 400;
+      font-size: 22px; font-style: italic;
     }
-    .step h4 { font-size: 18px; margin-bottom: 8px; font-weight: 600; }
-    .step p { font-size: 14px; color: var(--muted); }
 
-    /* ===== TESTIMONIALS ===== */
-    .testimonials { background: var(--white); text-align: center; }
-    .test-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 24px; margin-top: 50px;
-      text-align: right;
+    /* ABOUT */
+    .t-about {
+      display: flex; flex-direction: column; justify-content: center;
     }
-    .test-card {
-      background: var(--gray-card);
-      padding: 38px 32px;
+    .t-about h2 { font-size: clamp(28px, 3vw, 42px); margin-bottom: 12px; }
+    .t-about p { font-size: 15.5px; color: #333; max-width: 580px; }
+
+    /* CTA PILL */
+    .t-cta-pill {
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer;
+      transition: background .3s;
+    }
+    .t-cta-pill:hover { background: #000; }
+    .t-cta-pill .ct {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: clamp(24px, 3vw, 40px);
+    }
+    .t-cta-pill .ct em { font-style: italic; color: var(--gold); }
+    .t-cta-pill .arr {
+      width: 80px; height: 80px;
+      background: var(--gold);
+      display: grid; place-items: center;
+      color: #fff; font-size: 28px;
+      transition: transform .3s;
+    }
+    .t-cta-pill:hover .arr { transform: translateX(-10px); background: #fff; color: var(--black); }
+
+    /* QUOTE */
+    .t-quote {
+      display: flex; flex-direction: column; justify-content: center;
+      text-align: center; padding: 50px;
+    }
+    .t-quote .q {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-style: italic;
+      font-size: clamp(24px, 3vw, 44px);
+      line-height: 1.3;
+      max-width: 1000px; margin: 0 auto;
+    }
+    .t-quote .q em { color: var(--gold); font-style: italic; }
+    .t-quote cite {
+      display: block; margin-top: 18px;
+      font-family: 'Heebo', sans-serif;
+      font-style: normal; font-size: 12px;
+      letter-spacing: .3em; opacity: .6;
+    }
+
+    /* CATEGORY TILES */
+    .t-cat-1, .t-cat-2, .t-cat-3 {
+      padding: 0;
+      display: flex; flex-direction: column; justify-content: flex-end;
       position: relative;
-      border-top: 3px solid var(--gold);
     }
-    .test-quote {
-      font-size: 60px; font-family: 'Frank Ruhl Libre', serif;
-      color: var(--gold); line-height: 0.5; margin-bottom: 24px;
-    }
-    .test-card p { font-size: 15px; color: #4a4a4a; margin-bottom: 24px; }
-    .test-author {
-      font-weight: 600; font-size: 15px;
-      padding-top: 18px; border-top: 1px solid #ddd;
-    }
-    .test-author span { display: block; color: var(--muted); font-weight: 400; font-size: 13px; margin-top: 3px; }
+    .t-cat-1 { background-image: linear-gradient(180deg, transparent 40%, rgba(0,0,0,.85) 100%), url('https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&w=1200&q=80'); background-size: cover; background-position: center; color: #fff; }
+    .t-cat-2 { background-image: linear-gradient(180deg, transparent 40%, rgba(0,0,0,.85) 100%), url('https://images.unsplash.com/photo-1556909195-79be23e1d0d9?auto=format&fit=crop&w=1200&q=80'); background-size: cover; background-position: center; color: #fff; }
+    .t-cat-3 { background-image: linear-gradient(180deg, transparent 40%, rgba(0,0,0,.85) 100%), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80'); background-size: cover; background-position: center; color: #fff; }
 
-    /* ===== CTA / FORM ===== */
-    .cta-section {
-      background:
-        linear-gradient(rgba(26,26,26,.88), rgba(26,26,26,.92)),
-        url('https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&w=2000&q=80') center/cover fixed;
-      color: #fff;
-      text-align: center;
+    .cat-content {
+      padding: 32px;
     }
-    .cta-section .section-title { color: #fff; }
-    .cta-section .section-eyebrow { color: var(--gold); }
-    .form {
-      max-width: 640px; margin: 40px auto 0;
-      display: grid; gap: 16px;
-      grid-template-columns: 1fr 1fr;
+    .cat-content .num {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 14px; color: var(--gold);
+      letter-spacing: .25em; margin-bottom: 8px;
     }
-    .form input {
-      width: 100%; padding: 18px 20px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.2);
-      color: #fff; font-family: inherit; font-size: 15px;
-      transition: border-color .2s;
+    .cat-content h3 {
+      font-size: 28px; margin-bottom: 6px;
     }
-    .form input:focus { outline: none; border-color: var(--gold); }
-    .form input::placeholder { color: #aaa; }
-    .form button {
-      grid-column: 1 / -1;
-      padding: 18px;
-      background: var(--gold); color: #fff;
-      border: none; font-family: inherit; font-size: 16px;
-      font-weight: 500; letter-spacing: .1em; cursor: pointer;
-      transition: background .2s;
-    }
-    .form button:hover { background: var(--gold-dark); }
+    .cat-content p { font-size: 13.5px; opacity: .85; }
 
-    /* ===== FOOTER ===== */
-    footer {
-      background: #0f0f0f; color: #999;
-      padding: 60px 32px 28px;
+    /* VALUE TILES */
+    .t-val-1, .t-val-2, .t-val-3, .t-val-4 {
+      display: flex; flex-direction: column; justify-content: space-between;
     }
-    .footer-grid {
-      max-width: 1280px; margin: 0 auto;
-      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 50px; padding-bottom: 40px;
-      border-bottom: 1px solid #222;
+    .v-num {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 38px; color: var(--gold);
+      font-weight: 400;
     }
-    .footer-grid h5 {
-      color: #fff; font-size: 14px; letter-spacing: .2em;
-      margin-bottom: 18px; font-weight: 500;
+    .v-title {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 22px; line-height: 1.2;
     }
-    .footer-grid p, .footer-grid li { font-size: 14px; line-height: 2.1; }
-    .footer-grid ul { list-style: none; }
-    .footer-grid a:hover { color: var(--gold); }
-    .footer-bottom {
-      max-width: 1280px; margin: 28px auto 0;
-      display: flex; justify-content: space-between;
+
+    /* PROCESS */
+    .t-process {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+      padding: 0;
+    }
+    .pr-step {
+      padding: 32px;
+      border-left: 1px solid #333;
+    }
+    .pr-step:first-child { border-left: none; }
+    .pr-num {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 50px; color: var(--gold); line-height: 1;
+    }
+    .pr-step h4 { font-family: 'Frank Ruhl Libre', serif; font-size: 22px; margin: 18px 0 6px; }
+    .pr-step p { font-size: 13.5px; opacity: .75; }
+
+    /* TESTIMONIALS */
+    .t-test-1, .t-test-2, .t-test-3 {
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .t-test-1 .q, .t-test-2 .q, .t-test-3 .q {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-style: italic;
+      font-size: 17px; line-height: 1.5;
+    }
+    .who {
+      padding-top: 16px;
+      border-top: 1px solid currentColor;
       font-size: 12.5px; letter-spacing: .15em;
+      opacity: .85;
     }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 960px) {
-      nav ul { display: none; }
-      .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .about-image { height: 380px; }
-      .cat-grid { grid-template-columns: 1fr; }
-      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
-      .benefit { border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); padding-bottom: 28px; }
-      .process-grid { grid-template-columns: 1fr; }
-      .step { border-left: none; border-bottom: 1px solid #e5e0d6; }
-      .test-grid { grid-template-columns: 1fr; }
-      .form { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
-      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
-      section { padding: 70px 24px; }
+    /* FORM */
+    .t-form {
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .t-form h3 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: clamp(28px, 3vw, 44px);
+      margin-bottom: 24px;
+    }
+    .t-form h3 em { color: var(--gold); font-style: italic; }
+    .form-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+      margin-bottom: 10px;
+    }
+    .form-row input, form .full {
+      width: 100%; padding: 16px 18px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.15);
+      color: #fff; font-family: inherit; font-size: 15px;
+    }
+    form .full { margin-bottom: 12px; }
+    form button {
+      padding: 16px 32px;
+      background: var(--gold); color: #fff;
+      border: none; font-family: inherit; font-size: 15px;
+      letter-spacing: .15em; cursor: pointer;
+      transition: background .25s;
+      width: fit-content;
+    }
+    form button:hover { background: #fff; color: var(--black); }
+    form input::placeholder { color: #888; }
+
+    /* INFO */
+    .t-info {
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .info-row { margin-bottom: 18px; }
+    .info-row .k { font-size: 11px; letter-spacing: .25em; color: var(--gold); margin-bottom: 4px; }
+    .info-row .v { font-size: 16px; }
+
+    /* FOOTER */
+    .t-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 32px;
+      font-size: 12px; letter-spacing: .2em;
+    }
+
+    /* MOBILE — collapse bento */
+    @media (max-width: 900px) {
+      .bento {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: auto;
+        padding-top: 90px;
+      }
+      .tile { padding: 24px; min-height: 200px; }
+      .t-brand { grid-column: span 2; }
+      .t-headline { grid-column: span 2; }
+      .t-stat-1 { grid-column: span 1; }
+      .t-hero-img { grid-column: span 2; min-height: 360px; }
+      .t-about { grid-column: span 2; }
+      .t-cta-pill { grid-column: span 2; }
+      .t-quote { grid-column: span 2; }
+      .t-cat-1, .t-cat-2, .t-cat-3 { grid-column: span 2; min-height: 320px; }
+      .t-val-1, .t-val-2, .t-val-3, .t-val-4 { grid-column: span 1; min-height: 160px; }
+      .t-process { grid-column: span 2; }
+      .t-process { grid-template-columns: 1fr; }
+      .pr-step { border-left: none; border-bottom: 1px solid #333; }
+      .t-test-1, .t-test-2, .t-test-3 { grid-column: span 2; }
+      .t-form { grid-column: span 2; }
+      .t-info { grid-column: span 2; }
+      .t-footer { grid-column: span 2; flex-direction: column; gap: 8px; }
+      .menu-pill { gap: 14px; padding: 10px 16px; font-size: 11px; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="nav">
-      <a class="logo" href="#">
-        <div class="logo-mark">H</div>
-        <div class="logo-text">
-          <span>HAOMAN</span>
-          <b>האומן מטבחים</b>
-        </div>
-      </a>
-      <nav>
-        <ul>
-          <li><a href="#home">בית</a></li>
-          <li><a href="#about">אודות</a></li>
-          <li><a href="#gallery">גלריה</a></li>
-          <li><a href="#process">תהליך</a></li>
-          <li><a href="#contact">צור קשר</a></li>
-        </ul>
-      </nav>
-      <a class="nav-cta" href="#contact">תיאום פגישה</a>
-    </div>
-  </header>
+  <div class="menu-pill">
+    <span class="dot"></span>
+    <a href="#">בית</a>
+    <a href="#cat">סגנונות</a>
+    <a href="#process">תהליך</a>
+    <a href="#form">צור קשר</a>
+  </div>
 
-  <section class="hero" id="home">
-    <div class="hero-inner">
-      <span class="eyebrow">מתכננים. מייצרים. מתקינים.</span>
-      <h1>אומנות המטבח <span>בהתאמה אישית</span></h1>
-      <p>למעלה משני עשורים שאנחנו יוצרים מטבחים שמחזיקים שנים — בתכנון פרטני, בעבודת יד מדויקת ובחומרי גלם מהמשובחים שיש.</p>
-      <a class="btn" href="#contact">לתיאום פגישת ייעוץ ←</a>
-    </div>
-    <div class="hero-scroll">SCROLL</div>
-  </section>
+  <div class="bento">
 
-  <section id="about">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-text">
-          <p class="section-eyebrow">אודות האומן</p>
-          <h2 class="section-title">אומנות המטבח <span class="accent">מתחילה כאן</span></h2>
-          <div class="divider"></div>
-          <p>האומן מטבחים מתמחה בתכנון וייצור מטבחים בהתאמה אישית, מתוך שילוב של ניסיון, דיוק ותשומת לב לפרטים הקטנים ביותר. כל מטבח נבנה מתוך הקשבה לצרכים, חשיבה פונקציונלית ועיצוב על-זמני — כזה שמחזיק לאורך שנים.</p>
-          <p>אנו עובדים עם חומרי גלם איכותיים, טכנולוגיות מתקדמות וגימור מוקפד, ומלווים את הלקוח באופן אישי משלב הרעיון ועד ההתקנה הסופית.</p>
-          <p><strong>המטרה שלנו פשוטה:</strong> ליצור מטבח שהוא גם יפה, גם נוח, וגם מרגיש נכון בכל יום מחדש.</p>
-          <a class="btn" href="#gallery" style="margin-top:18px;">לצפייה בגלריה ←</a>
-        </div>
-        <div class="about-image"></div>
+    <!-- BRAND -->
+    <div class="tile t-cream t-brand">
+      <div>
+        <span class="corner-label">EST. 2003</span>
+        <div class="brand-mark">H.</div>
+      </div>
+      <div>
+        <div class="name serif">האומן מטבחים</div>
+        <div class="sub">HAOMAN KITCHENS</div>
       </div>
     </div>
-  </section>
 
-  <section class="categories" id="gallery">
-    <div class="container" style="text-align:center;">
-      <p class="section-eyebrow">הסגנונות שלנו</p>
-      <h2 class="section-title">שלוש שפות עיצוב, <span class="accent">אומנות אחת</span></h2>
-      <div class="divider" style="margin: 0 auto 28px;"></div>
+    <!-- HEADLINE -->
+    <div class="tile t-black t-headline">
+      <span class="corner-label">01 / מבוא</span>
+      <h1>אומנות <em>המטבח.</em><br>בהתאמה אישית.</h1>
+      <p class="lead">למעלה משני עשורים שאנחנו יוצרים מטבחים שמחזיקים שנים — בתכנון פרטני, בעבודת יד מדויקת ובחומרי גלם מהמשובחים שיש בעולם.</p>
+    </div>
 
-      <div class="cat-grid">
-        <div class="cat">
-          <span class="cat-tag">מודרני</span>
-          <img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&w=900&q=80" alt="מטבח מודרני">
-          <div class="cat-overlay">
-            <h3>מטבחים מודרניים</h3>
-            <p>קווים נקיים, גימורים מאט וגבי-מינימליסטיים</p>
-          </div>
-        </div>
-        <div class="cat">
-          <span class="cat-tag">קלאסי</span>
-          <img src="https://images.unsplash.com/photo-1556909195-79be23e1d0d9?auto=format&fit=crop&w=900&q=80" alt="מטבח קלאסי">
-          <div class="cat-overlay">
-            <h3>מטבחים קלאסיים</h3>
-            <p>אלגנטיות נצחית עם פרופורציות מדויקות</p>
-          </div>
-        </div>
-        <div class="cat">
-          <span class="cat-tag">כפרי</span>
-          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80" alt="מטבח כפרי">
-          <div class="cat-overlay">
-            <h3>מטבחים כפריים</h3>
-            <p>חמימות, עץ אמיתי ופרטים בעבודת יד</p>
-          </div>
-        </div>
+    <!-- STAT 1 -->
+    <div class="tile t-gold t-stat-1">
+      <div class="stat-num">23</div>
+      <div class="lbl">שנות ניסיון</div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="tile t-paper t-about">
+      <span class="corner-label">02 / אודות</span>
+      <h2 class="serif">אומנות המטבח <em style="color:var(--gold);font-style:italic">מתחילה כאן.</em></h2>
+      <p>האומן מטבחים מתמחה בתכנון וייצור מטבחים בהתאמה אישית, מתוך שילוב של ניסיון, דיוק ותשומת לב לפרטים הקטנים ביותר. כל מטבח נבנה מתוך הקשבה לצרכים, חשיבה פונקציונלית ועיצוב על-זמני, כזה שמחזיק לאורך שנים.</p>
+    </div>
+
+    <!-- HERO IMG -->
+    <div class="tile t-img t-hero-img">
+      <span class="corner-label">PROJECT N°024</span>
+      <div class="img-cap">פנטהאוז, הרצליה פיתוח · 2024</div>
+    </div>
+
+    <!-- CTA PILL -->
+    <a class="tile t-black t-cta-pill" href="#form">
+      <div class="ct serif">לתיאום פגישת <em>ייעוץ.</em></div>
+      <div class="arr">←</div>
+    </a>
+
+    <!-- QUOTE -->
+    <div class="tile t-cream t-quote">
+      <div class="q">"המטרה שלנו פשוטה — ליצור מטבח שהוא גם <em>יפה</em>, גם <em>נוח</em>, וגם <em>מרגיש נכון</em> בכל יום מחדש."</div>
+      <cite>— צוות האומן מטבחים</cite>
+    </div>
+
+    <!-- CATEGORY 1 -->
+    <div class="tile t-cat-1" id="cat">
+      <div class="cat-content">
+        <div class="num">01 — MODERN</div>
+        <h3 class="serif">מטבחים מודרניים</h3>
+        <p>קווים נקיים, גימורי מאט, פתרונות חכמים</p>
       </div>
     </div>
-  </section>
 
-  <section class="benefits">
-    <div class="benefits-grid">
-      <div class="benefit">
-        <div class="icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12 9 18 21 6"/></svg>
-        </div>
-        <h4>תכנון אישי</h4>
-        <p>תוכנית ייחודית המבוססת על אורח החיים שלכם</p>
-      </div>
-      <div class="benefit">
-        <div class="icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="14"/><path d="M3 9h18M8 4v14"/></svg>
-        </div>
-        <h4>חומרי גלם איכותיים</h4>
-        <p>עצים, אבן ומשטחים מהמובילים בעולם</p>
-      </div>
-      <div class="benefit">
-        <div class="icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2 L20 7 V17 L12 22 L4 17 V7 Z"/></svg>
-        </div>
-        <h4>גימור מוקפד</h4>
-        <p>פרטים ידניים, חיבורים מדויקים, גימור ללא פשרות</p>
-      </div>
-      <div class="benefit">
-        <div class="icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-        </div>
-        <h4>ליווי מלא</h4>
-        <p>מהפגישה הראשונה ועד ההתקנה האחרונה</p>
+    <!-- CATEGORY 2 -->
+    <div class="tile t-cat-2">
+      <div class="cat-content">
+        <div class="num">02 — CLASSIC</div>
+        <h3 class="serif">מטבחים קלאסיים</h3>
+        <p>אלגנטיות נצחית, פרופורציות מדויקות</p>
       </div>
     </div>
-  </section>
 
-  <section id="process">
-    <div class="container">
-      <div style="text-align:center;">
-        <p class="section-eyebrow">תהליך העבודה</p>
-        <h2 class="section-title">ארבעה שלבים. <span class="accent">תוצאה אחת.</span></h2>
-        <div class="divider" style="margin: 0 auto;"></div>
-      </div>
-
-      <div class="process-grid">
-        <div class="step">
-          <div class="step-num">01</div>
-          <h4>פגישת ייעוץ</h4>
-          <p>היכרות, הקשבה לצרכים והבנת הסגנון והתקציב.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">02</div>
-          <h4>תכנון ועיצוב</h4>
-          <p>הדמיות תלת־ממד, בחירת חומרים וצבעים.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">03</div>
-          <h4>ייצור במפעל</h4>
-          <p>בנייה במפעל שלנו תחת בקרת איכות הדוקה.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">04</div>
-          <h4>התקנה ומסירה</h4>
-          <p>הרכבה מקצועית, ליטוש סופי והדרכת שימוש.</p>
-        </div>
+    <!-- CATEGORY 3 -->
+    <div class="tile t-cat-3">
+      <div class="cat-content">
+        <div class="num">03 — RUSTIC</div>
+        <h3 class="serif">מטבחים כפריים</h3>
+        <p>חמימות, עץ אמיתי, עבודת יד</p>
       </div>
     </div>
-  </section>
 
-  <section class="testimonials">
-    <div class="container">
-      <p class="section-eyebrow">לקוחות מספרים</p>
-      <h2 class="section-title">מה אומרים <span class="accent">הלקוחות שלנו</span></h2>
-      <div class="divider" style="margin: 0 auto;"></div>
+    <!-- VALUES -->
+    <div class="tile t-paper t-val-1">
+      <div class="v-num">I</div>
+      <div class="v-title">תכנון אישי</div>
+    </div>
+    <div class="tile t-cream t-val-2">
+      <div class="v-num">II</div>
+      <div class="v-title">חומרי גלם איכותיים</div>
+    </div>
+    <div class="tile t-paper t-val-3">
+      <div class="v-num">III</div>
+      <div class="v-title">גימור מוקפד</div>
+    </div>
+    <div class="tile t-cream t-val-4">
+      <div class="v-num">IV</div>
+      <div class="v-title">ליווי מלא</div>
+    </div>
 
-      <div class="test-grid">
-        <div class="test-card">
-          <div class="test-quote">“</div>
-          <p>חיפשנו צוות שיבין בדיוק מה אנחנו רוצים — וקיבלנו את זה. הקשב לפרטים, הליווי האישי והתוצאה הסופית עברו את הציפיות.</p>
-          <div class="test-author">משפחת לוי <span>הרצליה</span></div>
-        </div>
-        <div class="test-card">
-          <div class="test-quote">“</div>
-          <p>איכות הייצור פשוט יוצאת דופן. אחרי שלוש שנים המטבח נראה כמו ביום ההתקנה. אומן אמיתי.</p>
-          <div class="test-author">דנה ויואב <span>תל אביב</span></div>
-        </div>
-        <div class="test-card">
-          <div class="test-quote">“</div>
-          <p>שירות מהשורה הראשונה. הצוות הקשיב, הציע פתרונות יצירתיים, ועמד בכל מילה בלוחות הזמנים.</p>
-          <div class="test-author">אבי כהן <span>רמת השרון</span></div>
-        </div>
+    <!-- PROCESS -->
+    <div class="tile t-black t-process" id="process">
+      <div class="pr-step">
+        <div class="pr-num">01</div>
+        <h4>פגישת ייעוץ</h4>
+        <p>היכרות והקשבה לצרכים</p>
+      </div>
+      <div class="pr-step">
+        <div class="pr-num">02</div>
+        <h4>תכנון</h4>
+        <p>הדמיות תלת-ממד ובחירת חומרים</p>
+      </div>
+      <div class="pr-step">
+        <div class="pr-num">03</div>
+        <h4>ייצור</h4>
+        <p>בנייה במפעל תחת בקרת איכות</p>
+      </div>
+      <div class="pr-step">
+        <div class="pr-num">04</div>
+        <h4>התקנה</h4>
+        <p>הרכבה, ליטוש סופי ומסירה</p>
       </div>
     </div>
-  </section>
 
-  <section class="cta-section" id="contact">
-    <div class="container">
-      <p class="section-eyebrow">קביעת פגישת ייעוץ</p>
-      <h2 class="section-title">הצעד הראשון <span class="accent">למטבח החדש</span></h2>
-      <div class="divider" style="margin: 0 auto 12px;"></div>
-      <p style="opacity:.85;">השאירו פרטים ונחזור אליכם בהקדם.</p>
+    <!-- TESTIMONIALS -->
+    <div class="tile t-paper t-test-1">
+      <div class="q">"חיפשנו צוות שיבין בדיוק מה אנחנו רוצים — וקיבלנו את זה. הקשב לפרטים והליווי האישי עברו את הציפיות."</div>
+      <div class="who">משפחת לוי · הרצליה</div>
+    </div>
+    <div class="tile t-cream t-test-2">
+      <div class="q">"איכות הייצור פשוט יוצאת דופן. אחרי שלוש שנים המטבח נראה כמו ביום ההתקנה."</div>
+      <div class="who">דנה ויואב · תל אביב</div>
+    </div>
+    <div class="tile t-paper t-test-3">
+      <div class="q">"שירות מהשורה הראשונה. הצוות הקשיב, הציע פתרונות יצירתיים ועמד בלוחות זמנים."</div>
+      <div class="who">אבי כהן · רמת השרון</div>
+    </div>
 
-      <form class="form" onsubmit="event.preventDefault(); alert('תודה! ניצור איתך קשר בקרוב.');">
-        <input type="text" placeholder="שם מלא" required>
-        <input type="tel" placeholder="טלפון" required>
-        <input type="email" placeholder="אימייל" style="grid-column:1/-1;">
-        <button type="submit">קביעת פגישת ייעוץ ←</button>
+    <!-- FORM -->
+    <div class="tile t-black t-form" id="form">
+      <span class="corner-label">— הצעד הראשון</span>
+      <h3>הצעד הראשון<br>למטבח <em>החדש שלך.</em></h3>
+      <form onsubmit="event.preventDefault(); alert('תודה!');">
+        <div class="form-row">
+          <input type="text" placeholder="שם מלא" required>
+          <input type="tel" placeholder="טלפון" required>
+        </div>
+        <input class="full" type="email" placeholder="אימייל">
+        <button type="submit">קביעת פגישה ←</button>
       </form>
     </div>
-  </section>
 
-  <footer>
-    <div class="footer-grid">
+    <!-- INFO -->
+    <div class="tile t-gold t-info">
       <div>
-        <div class="logo" style="margin-bottom: 18px;">
-          <div class="logo-mark">H</div>
-          <div class="logo-text"><span>HAOMAN</span><b>האומן מטבחים</b></div>
+        <div class="info-row">
+          <div class="k">טלפון</div>
+          <div class="v">03-1234567</div>
         </div>
-        <p>אומנות המטבח בהתאמה אישית. תכנון, ייצור והתקנה תחת קורת גג אחת.</p>
+        <div class="info-row">
+          <div class="k">אימייל</div>
+          <div class="v">info@haoman.co.il</div>
+        </div>
+        <div class="info-row">
+          <div class="k">כתובת</div>
+          <div class="v">הרצליה פיתוח</div>
+        </div>
+        <div class="info-row">
+          <div class="k">שעות</div>
+          <div class="v">א׳-ה׳ 9:00-19:00</div>
+        </div>
       </div>
-      <div>
-        <h5>ניווט</h5>
-        <ul>
-          <li><a href="#about">אודות</a></li>
-          <li><a href="#gallery">גלריה</a></li>
-          <li><a href="#process">תהליך</a></li>
-          <li><a href="#contact">צור קשר</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>סגנונות</h5>
-        <ul>
-          <li>מטבחים מודרניים</li>
-          <li>מטבחים קלאסיים</li>
-          <li>מטבחים כפריים</li>
-        </ul>
-      </div>
-      <div>
-        <h5>צור קשר</h5>
-        <p>03-1234567<br>info@haoman.co.il<br>הרצליה פיתוח</p>
-      </div>
+      <div style="font-size:12px;letter-spacing:.2em;opacity:.85;">משלמים בייעוץ ראשוני? לא.</div>
     </div>
-    <div class="footer-bottom">
-      <span>© 2026 האומן מטבחים. כל הזכויות שמורות.</span>
-      <span>HAOMAN KITCHENS</span>
+
+    <!-- FOOTER -->
+    <div class="tile t-black t-footer">
+      <span>© 2026 HAOMAN KITCHENS</span>
+      <span>אומנות המטבח · בהתאמה אישית</span>
+      <span>Instagram · Facebook · Pinterest</span>
     </div>
-  </footer>
+
+  </div>
 
 </body>
 </html>

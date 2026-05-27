@@ -3,35 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>האומן מטבחים — אומנות המטבח</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>האומן מטבחים — Fullscreen Panels</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;700;900&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ===== OPTION 2 — EDITORIAL DARK =====
-       בהשראת avivi.com — דרמטי, אסימטרי, רקעים שחורים גדולים,
-       טיפוגרפיה מגזינית, ספיישינג נדיב. אפס border-radius. */
+    /* ===== OPTION 2 — SCROLL-SNAP FULLSCREEN PANELS =====
+       כל "סקשן" הוא 100vh עם משפט אחד גדול. כמו לדפדף ספר עיצוב.
+       מינימליסטי קיצוני, אווירה של תערוכה. */
 
     :root {
-      --black: #0e0e0e;
+      --black: #0d0d0d;
       --black-2: #1a1a1a;
       --gold: #c9a165;
-      --gold-bright: #d9b27a;
-      --bone: #ebe6dc;
+      --bone: #f1ebde;
       --line: #2a2a2a;
-      --text-light: #e8e6e1;
       --muted: #888;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     *, *::before, *::after { border-radius: 0 !important; }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
     body {
       font-family: 'Heebo', sans-serif;
       background: var(--black);
-      color: var(--text-light);
-      line-height: 1.7;
+      color: #fff;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
@@ -39,536 +37,562 @@
     a { color: inherit; text-decoration: none; }
     .serif { font-family: 'Cormorant Garamond', serif; font-weight: 400; }
 
-    /* ===== HEADER ===== */
-    header {
-      position: fixed; top: 0; right: 0; left: 0;
-      z-index: 100;
-      padding: 28px 48px;
-      display: flex; align-items: center; justify-content: space-between;
+    /* === fixed UI === */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      padding: 28px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      z-index: 50;
       mix-blend-mode: difference;
       color: #fff;
     }
-    .brand {
+    .topbar .b {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 26px; letter-spacing: .04em; font-weight: 500;
+      font-size: 22px; letter-spacing: .05em;
     }
-    .brand span { color: var(--gold); font-style: italic; }
-    nav ul {
-      display: flex; gap: 38px; list-style: none;
-      font-size: 13px; letter-spacing: .25em; text-transform: uppercase;
-    }
-    nav a { transition: opacity .2s; }
-    nav a:hover { opacity: .6; }
-    .menu-btn {
-      width: 44px; height: 44px;
+    .topbar .b i { color: var(--gold); font-style: italic; }
+    .topbar .menu {
+      width: 48px; height: 48px;
+      border: 1px solid rgba(255,255,255,.4);
       display: grid; place-items: center;
-      border: 1px solid rgba(255,255,255,.3);
+      cursor: pointer;
     }
 
-    /* ===== HERO ===== */
-    .hero {
-      position: relative; min-height: 100vh;
-      padding: 140px 48px 80px;
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 60px;
-      align-items: center;
+    /* === side dots nav === */
+    .dots {
+      position: fixed; left: 40px; top: 50%; transform: translateY(-50%);
+      z-index: 50;
+      display: flex; flex-direction: column; gap: 14px;
     }
-    .hero::before {
-      content: ""; position: absolute;
-      top: 0; right: 0; bottom: 0;
-      width: 60%; z-index: 0;
-      background:
-        linear-gradient(90deg, var(--black) 0%, transparent 30%),
-        url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=2000&q=80') center/cover;
+    .dots a {
+      width: 8px; height: 8px;
+      background: rgba(255,255,255,.25);
+      transition: background .3s, transform .3s;
     }
-    .hero-text { position: relative; z-index: 2; }
-    .hero-number {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 14px; color: var(--gold);
-      letter-spacing: .4em; margin-bottom: 32px;
-      display: flex; align-items: center; gap: 16px;
-    }
-    .hero-number::before {
-      content: ""; width: 40px; height: 1px; background: var(--gold);
-    }
-    .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(56px, 8vw, 130px);
-      font-weight: 300;
-      line-height: .95;
-      letter-spacing: -.02em;
-      color: #fff;
-      margin-bottom: 40px;
-    }
-    .hero h1 em {
-      font-style: italic; color: var(--gold);
-      font-weight: 400;
-    }
-    .hero-meta {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 40px; max-width: 520px;
-      padding-top: 32px; border-top: 1px solid var(--line);
-    }
-    .hero-meta p { font-size: 15px; color: var(--muted); }
-    .hero-meta strong { color: #fff; display: block; font-size: 13px; letter-spacing: .2em; margin-bottom: 6px; font-weight: 500; }
-
-    .hero-cta {
-      display: inline-flex; align-items: center; gap: 16px;
-      margin-top: 48px;
-      padding: 22px 36px;
-      background: var(--gold); color: var(--black);
-      font-weight: 600; font-size: 14px; letter-spacing: .15em;
-      transition: all .3s;
-    }
-    .hero-cta:hover { background: #fff; padding-right: 50px; padding-left: 22px; }
-    .hero-cta::after {
-      content: "←"; font-size: 18px;
-      transition: transform .3s;
+    .dots a:hover, .dots a.active { background: var(--gold); transform: scale(1.5); }
+    .dots .lbl {
+      position: absolute; right: 24px; top: 50%; transform: translateY(-50%);
+      font-size: 10px; letter-spacing: .3em; color: var(--muted);
+      writing-mode: vertical-rl;
     }
 
     /* === side counter === */
-    .side-counter {
-      position: absolute; left: 48px; bottom: 48px;
-      writing-mode: vertical-rl; transform: rotate(180deg);
-      font-size: 12px; letter-spacing: .4em; color: var(--muted);
+    .counter {
+      position: fixed; right: 40px; bottom: 40px;
+      font-size: 11px; letter-spacing: .35em;
+      color: var(--muted); z-index: 50;
+    }
+    .counter b { color: #fff; font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; }
+    .counter .line { display: inline-block; width: 40px; height: 1px; background: var(--muted); margin: 0 12px; vertical-align: middle; }
+
+    /* === panel base === */
+    .panel {
+      min-height: 100vh;
+      width: 100%;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      display: flex; align-items: center; justify-content: center;
+      padding: 100px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .panel-num {
+      position: absolute; top: 100px; right: 40px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px; letter-spacing: .4em;
+      color: var(--gold);
+    }
+    .panel-num::after {
+      content: ""; display: inline-block; width: 50px; height: 1px;
+      background: var(--gold); margin-right: 14px; vertical-align: middle;
     }
 
-    /* ===== SECTION BASE ===== */
-    section { position: relative; padding: 140px 48px; }
-    .container { max-width: 1400px; margin: 0 auto; }
-    .label {
-      display: inline-flex; align-items: center; gap: 14px;
-      font-size: 12px; letter-spacing: .35em; color: var(--gold);
-      text-transform: uppercase; margin-bottom: 32px;
-    }
-    .label::before { content: ""; width: 28px; height: 1px; background: var(--gold); }
-    .title-xl {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(44px, 6vw, 84px);
-      font-weight: 300;
-      line-height: 1.05;
-      color: #fff;
-      letter-spacing: -.01em;
-    }
-    .title-xl em { font-style: italic; color: var(--gold); font-weight: 400; }
-
-    /* ===== INTRO / ABOUT ===== */
-    .intro-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 100px; align-items: end;
-    }
-    .intro-img {
-      height: 680px;
-      background: url('https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&w=1400&q=80') center/cover;
-    }
-    .intro-text p {
-      font-size: 16.5px; color: #c0bdb6; margin-bottom: 18px;
-    }
-    .stats {
-      display: grid; grid-template-columns: repeat(3,1fr);
-      gap: 24px; margin-top: 64px;
-      padding-top: 48px; border-top: 1px solid var(--line);
-    }
-    .stat .num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 64px; color: var(--gold); line-height: 1;
-      font-weight: 400;
-    }
-    .stat .lbl { font-size: 13px; color: var(--muted); margin-top: 8px; letter-spacing: .2em; text-transform: uppercase; }
-
-    /* ===== CATEGORIES — magazine style ===== */
-    .categories { background: #060606; }
-    .cat-row {
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 60px; align-items: center;
-      margin-top: 80px;
-      padding: 40px 0;
-      border-bottom: 1px solid var(--line);
-    }
-    .cat-row:nth-child(odd) {
-      grid-template-columns: 1.5fr 1fr;
-      direction: ltr;
-    }
-    .cat-row:nth-child(odd) > * { direction: rtl; }
-    .cat-row .img {
-      height: 480px; overflow: hidden;
-    }
-    .cat-row .img img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform .8s;
-    }
-    .cat-row:hover .img img { transform: scale(1.06); }
-    .cat-info .cnum {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 100px; line-height: .8; color: var(--line);
-      font-weight: 400;
-    }
-    .cat-info h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 52px; font-weight: 400;
-      color: #fff; margin: 12px 0 20px;
-    }
-    .cat-info h3 em { color: var(--gold); font-style: italic; }
-    .cat-info p { color: #b3b0a8; font-size: 16px; max-width: 460px; margin-bottom: 28px; }
-    .cat-info .link {
-      display: inline-flex; gap: 12px; align-items: center;
-      color: var(--gold); font-size: 13px; letter-spacing: .25em;
-      padding-bottom: 6px; border-bottom: 1px solid var(--gold);
-    }
-
-    /* ===== PHILOSOPHY (full-bleed) ===== */
-    .philosophy {
-      padding: 160px 48px;
-      background:
-        linear-gradient(rgba(14,14,14,.85), rgba(14,14,14,.85)),
-        url('https://images.unsplash.com/photo-1556909190-eccf4a8bf97a?auto=format&fit=crop&w=2000&q=80') center/cover fixed;
+    /* === panel 01 — INTRO === */
+    .p1 { background: var(--black); }
+    .p1 .center {
       text-align: center;
     }
-    .philosophy blockquote {
-      max-width: 1000px; margin: 0 auto;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(28px, 4vw, 50px);
-      font-weight: 300; font-style: italic;
-      line-height: 1.3; color: #fff;
+    .p1 .pre {
+      font-size: 12px; letter-spacing: .5em; color: var(--gold);
+      margin-bottom: 60px;
     }
-    .philosophy blockquote em { color: var(--gold); }
-    .philosophy cite {
-      display: block; margin-top: 40px;
-      font-family: 'Heebo', sans-serif;
-      font-style: normal; font-size: 13px;
-      letter-spacing: .3em; color: var(--gold);
+    .p1 h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(60px, 11vw, 180px);
+      font-weight: 300;
+      line-height: .9; letter-spacing: -.02em;
+    }
+    .p1 h1 em { color: var(--gold); font-style: italic; font-weight: 400; }
+    .p1 .below {
+      margin-top: 60px;
+      font-size: 13px; letter-spacing: .35em; color: var(--muted);
     }
 
-    /* ===== VALUES strip ===== */
-    .values {
-      padding: 100px 48px;
-      background: var(--black);
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
+    /* === panel 02 — FULL IMAGE QUOTE === */
+    .p2 {
+      background:
+        linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.85)),
+        url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=2000&q=80') center/cover;
     }
-    .val-grid {
-      max-width: 1400px; margin: 0 auto;
+    .p2 .center {
+      text-align: center; max-width: 1100px;
+    }
+    .p2 blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(32px, 5vw, 72px);
+      font-weight: 300; font-style: italic;
+      line-height: 1.2;
+    }
+    .p2 blockquote em { color: var(--gold); }
+    .p2 cite {
+      display: block; margin-top: 40px;
+      font-family: 'Heebo', sans-serif;
+      font-style: normal; font-size: 12px;
+      letter-spacing: .4em; color: var(--gold);
+    }
+
+    /* === panel 03 — GIANT NUMBER === */
+    .p3 { background: var(--black-2); }
+    .p3 .center {
+      text-align: center;
+    }
+    .p3 .huge {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(180px, 28vw, 500px);
+      font-weight: 300; line-height: .8;
+      color: var(--gold);
+      letter-spacing: -.06em;
+    }
+    .p3 .below {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 4vw, 56px);
+      font-style: italic; font-weight: 300;
+      margin-top: 20px;
+    }
+    .p3 .small {
+      margin-top: 60px;
+      max-width: 480px; margin-left: auto; margin-right: auto;
+      font-size: 14.5px; color: var(--muted);
+    }
+
+    /* === panel 04 — CATEGORIES TRIPTYCH === */
+    .p4 {
+      padding: 100px 0;
+      display: block;
+    }
+    .p4 .head {
+      text-align: center; padding: 0 40px 80px;
+    }
+    .p4 .head .lbl {
+      font-size: 12px; letter-spacing: .4em; color: var(--gold);
+      margin-bottom: 24px;
+    }
+    .p4 .head h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5vw, 72px); font-weight: 300;
+    }
+    .p4 .head h2 em { color: var(--gold); font-style: italic; }
+    .triptych {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;
+      height: 60vh;
+    }
+    .tri-panel {
+      position: relative;
+      background-size: cover; background-position: center;
+      display: flex; align-items: flex-end;
+      padding: 40px;
+      color: #fff;
+      transition: flex .6s;
+      overflow: hidden;
+    }
+    .tri-panel::before {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,.85) 100%);
+    }
+    .tri-panel > * { position: relative; z-index: 1; }
+    .tri-c1 { background-image: url('https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&w=1400&q=80'); }
+    .tri-c2 { background-image: url('https://images.unsplash.com/photo-1556909195-79be23e1d0d9?auto=format&fit=crop&w=1400&q=80'); }
+    .tri-c3 { background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80'); }
+    .tri-panel .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; letter-spacing: .25em;
+      color: var(--gold); margin-bottom: 12px;
+    }
+    .tri-panel h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 3vw, 48px); font-weight: 300;
+      line-height: 1.05;
+    }
+    .tri-panel h3 em { color: var(--gold); font-style: italic; }
+    .tri-panel p { font-size: 13.5px; opacity: 0; max-width: 320px; margin-top: 12px; transition: opacity .4s; }
+    .tri-panel:hover p { opacity: .85; }
+
+    /* === panel 05 — VALUES === */
+    .p5 { background: var(--black); }
+    .p5 .center {
+      max-width: 1200px; width: 100%;
+    }
+    .p5 .head {
+      text-align: center; margin-bottom: 80px;
+    }
+    .p5 .head .lbl {
+      font-size: 12px; letter-spacing: .4em; color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .p5 .head h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5vw, 72px); font-weight: 300;
+    }
+    .p5 .head h2 em { font-style: italic; color: var(--gold); }
+    .vals {
       display: grid; grid-template-columns: repeat(4, 1fr);
       gap: 0;
     }
-    .val {
-      padding: 0 32px;
-      border-left: 1px solid var(--line);
-    }
-    .val:first-child { border-left: none; padding-right: 0; }
-    .val .vnum {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 22px; color: var(--gold);
-      letter-spacing: .2em; margin-bottom: 32px;
-    }
-    .val h4 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 32px; color: #fff; font-weight: 400;
-      margin-bottom: 14px;
-    }
-    .val p { color: var(--muted); font-size: 14.5px; }
-
-    /* ===== TESTIMONIALS ===== */
-    .testimonials { padding-bottom: 80px; }
-    .test-wrap { display: grid; gap: 32px; }
-    .test {
-      display: grid; grid-template-columns: 200px 1fr 200px;
-      gap: 40px; align-items: start;
-      padding: 50px 0;
-      border-top: 1px solid var(--line);
-    }
-    .test:last-child { border-bottom: 1px solid var(--line); }
-    .test .meta { font-size: 13px; letter-spacing: .25em; color: var(--gold); }
-    .test .meta span { display: block; color: var(--muted); margin-top: 6px; letter-spacing: .15em; }
-    .test .quote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(22px, 2.4vw, 32px);
-      line-height: 1.4; color: #fff;
-      font-weight: 300;
-    }
-    .test .quote::before { content: "“"; color: var(--gold); font-size: 60px; margin-left: 10px; line-height: 0; }
-    .test .num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 60px; color: var(--line); text-align: left; line-height: 1;
-    }
-
-    /* ===== CTA ===== */
-    .cta {
-      padding: 160px 48px;
+    .v {
+      padding: 0 24px;
       text-align: center;
-      background: linear-gradient(180deg, #060606 0%, #1a1a1a 100%);
-    }
-    .cta-form {
-      max-width: 720px; margin: 60px auto 0;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 0;
-      border: 1px solid var(--line);
-    }
-    .cta-form input {
-      width: 100%; padding: 24px;
-      background: transparent; color: #fff; font-family: inherit;
-      font-size: 16px; border: none;
       border-left: 1px solid var(--line);
     }
-    .cta-form input:last-of-type { grid-column: 1/-1; border-left: none; border-top: 1px solid var(--line); }
-    .cta-form input:focus { outline: 1px solid var(--gold); outline-offset: -2px; }
-    .cta-form input::placeholder { color: #555; }
-    .cta-form button {
-      grid-column: 1/-1;
+    .v:first-child { border-left: none; }
+    .v .roman {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 80px; color: var(--gold);
+      font-weight: 300; line-height: 1;
+      margin-bottom: 28px;
+    }
+    .v h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 400;
+      margin-bottom: 10px;
+    }
+    .v p { font-size: 13.5px; color: var(--muted); }
+
+    /* === panel 06 — TESTIMONIAL === */
+    .p6 {
+      background: var(--bone);
+      color: var(--black);
+    }
+    .p6 .center { max-width: 1100px; text-align: center; }
+    .p6 .lbl {
+      font-size: 12px; letter-spacing: .4em; color: var(--gold);
+      margin-bottom: 30px;
+    }
+    .p6 blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 4.5vw, 64px);
+      font-weight: 300; font-style: italic;
+      line-height: 1.25; color: var(--black);
+    }
+    .p6 blockquote em { color: var(--gold); }
+    .p6 cite {
+      display: block; margin-top: 50px;
+      font-family: 'Heebo', sans-serif;
+      font-style: normal; font-size: 13px;
+      letter-spacing: .3em; color: #555;
+    }
+    .p6 cite b { color: var(--black); font-weight: 600; display: block; margin-bottom: 4px; letter-spacing: .2em; }
+
+    /* === panel 07 — FORM === */
+    .p7 {
+      background: linear-gradient(180deg, var(--black) 0%, var(--black-2) 100%);
+    }
+    .p7 .center {
+      max-width: 700px; width: 100%; text-align: center;
+    }
+    .p7 .lbl {
+      font-size: 12px; letter-spacing: .4em; color: var(--gold);
+      margin-bottom: 24px;
+    }
+    .p7 h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(40px, 6vw, 90px); font-weight: 300;
+      line-height: 1;
+    }
+    .p7 h2 em { color: var(--gold); font-style: italic; }
+    .p7 p { margin-top: 24px; color: var(--muted); font-size: 15px; }
+
+    form {
+      margin-top: 60px;
+      text-align: right;
+    }
+    form .row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      border-bottom: 1px solid var(--line);
+    }
+    form .row input {
+      padding: 22px 4px; background: transparent;
+      border: none; color: #fff; font-family: inherit;
+      font-size: 16px;
+      border-left: 1px solid var(--line);
+    }
+    form .row input:first-child { border-left: none; padding-right: 0; }
+    form .row input:last-child { padding-left: 0; }
+    form input::placeholder { color: #555; }
+    form input:focus { outline: none; }
+    form .full {
+      width: 100%; padding: 22px 4px;
+      background: transparent;
+      border: none; border-bottom: 1px solid var(--line);
+      color: #fff; font-family: inherit; font-size: 16px;
+    }
+    form .full:focus { outline: none; border-bottom-color: var(--gold); }
+    form button {
+      margin-top: 40px; width: 100%;
       padding: 26px;
       background: var(--gold); color: var(--black);
-      border: none; font-family: inherit; font-size: 14px;
-      font-weight: 600; letter-spacing: .25em; cursor: pointer;
+      border: none; font-family: inherit;
+      font-size: 14px; font-weight: 600;
+      letter-spacing: .3em; cursor: pointer;
       text-transform: uppercase;
       transition: background .3s;
     }
-    .cta-form button:hover { background: #fff; }
+    form button:hover { background: #fff; }
 
-    /* ===== FOOTER ===== */
-    footer {
-      padding: 80px 48px 32px;
-      border-top: 1px solid var(--line);
+    /* === panel 08 — FOOTER === */
+    .p8 {
+      background: #050505;
+      min-height: 60vh; padding: 80px 40px 40px;
+      align-items: flex-start;
     }
-    .foot {
-      max-width: 1400px; margin: 0 auto;
-      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 60px;
+    .p8-inner {
+      width: 100%; max-width: 1400px;
     }
-    .foot h5 {
+    .p8 .big {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(60px, 12vw, 180px);
+      font-weight: 300; line-height: .85;
+      letter-spacing: -.02em;
+      color: var(--gold);
+      margin-bottom: 60px;
+    }
+    .p8 .grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 50px;
+      padding-top: 50px; border-top: 1px solid var(--line);
+    }
+    .p8 h5 {
       font-size: 11px; letter-spacing: .3em; color: var(--gold);
-      text-transform: uppercase; margin-bottom: 20px;
+      margin-bottom: 18px; text-transform: uppercase;
     }
-    .foot p, .foot a, .foot li { font-size: 14px; color: var(--muted); line-height: 2; }
-    .foot ul { list-style: none; }
-    .foot a:hover { color: #fff; }
+    .p8 li, .p8 p { font-size: 14px; color: var(--muted); line-height: 2; }
+    .p8 ul { list-style: none; }
+    .p8 a:hover { color: #fff; }
     .copy {
-      max-width: 1400px; margin: 60px auto 0;
-      padding-top: 24px; border-top: 1px solid var(--line);
+      margin-top: 50px; padding-top: 30px;
+      border-top: 1px solid var(--line);
       display: flex; justify-content: space-between;
-      font-size: 12px; color: #555; letter-spacing: .15em;
+      font-size: 11px; color: #555; letter-spacing: .25em;
     }
 
-    @media (max-width: 960px) {
-      header { padding: 20px 24px; }
-      nav ul { display: none; }
-      .hero { grid-template-columns: 1fr; padding: 120px 24px 60px; min-height: auto; }
-      .hero::before { width: 100%; opacity: .35; }
-      .hero-meta { grid-template-columns: 1fr; gap: 18px; }
-      .side-counter { display: none; }
-      section { padding: 80px 24px; }
-      .intro-grid { grid-template-columns: 1fr; gap: 40px; }
-      .intro-img { height: 400px; }
-      .stats { grid-template-columns: 1fr; }
-      .cat-row, .cat-row:nth-child(odd) { grid-template-columns: 1fr; gap: 30px; direction: rtl; }
-      .cat-row .img { height: 320px; }
-      .val-grid { grid-template-columns: 1fr 1fr; gap: 40px 0; }
-      .val { border-left: none; padding: 20px; border-bottom: 1px solid var(--line); }
-      .test { grid-template-columns: 1fr; }
-      .test .num { display: none; }
-      .cta-form { grid-template-columns: 1fr; }
-      .cta-form input { border-left: none; border-top: 1px solid var(--line); }
-      .cta-form input:first-child { border-top: none; }
-      .foot { grid-template-columns: 1fr 1fr; gap: 30px; }
-      .copy { flex-direction: column; gap: 8px; text-align: center; }
+    @media (max-width: 900px) {
+      .topbar { padding: 18px 24px; }
+      .dots { display: none; }
+      .counter { right: 24px; bottom: 24px; font-size: 10px; letter-spacing: .25em; }
+      .panel { padding: 90px 24px; }
+      .panel-num { right: 24px; top: 90px; font-size: 12px; }
+      .triptych { grid-template-columns: 1fr; height: auto; gap: 4px; }
+      .tri-panel { height: 60vh; }
+      .vals { grid-template-columns: 1fr 1fr; gap: 40px 0; }
+      .v { border-left: none; padding: 24px; border-bottom: 1px solid var(--line); }
+      .p3 .huge { font-size: 120px; }
+      .p8 .big { font-size: 60px; }
+      .p8 .grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+      .copy { flex-direction: column; gap: 8px; }
+      form .row { grid-template-columns: 1fr; }
+      form .row input { border-left: none; border-bottom: 1px solid var(--line); }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <a class="brand" href="#"><span>Haoman</span> kitchens</a>
-    <nav>
-      <ul>
-        <li><a href="#about">01 / אודות</a></li>
-        <li><a href="#gallery">02 / סגנונות</a></li>
-        <li><a href="#process">03 / תהליך</a></li>
-        <li><a href="#contact">04 / קשר</a></li>
-      </ul>
-    </nav>
-    <div class="menu-btn">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><line x1="3" y1="8" x2="21" y2="8"/><line x1="3" y1="16" x2="21" y2="16"/></svg>
+  <div class="topbar">
+    <a class="b" href="#"><i>Haoman</i> kitchens</a>
+    <div class="menu">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><line x1="3" y1="8" x2="21" y2="8"/><line x1="3" y1="16" x2="21" y2="16"/></svg>
     </div>
-  </header>
+  </div>
 
-  <section class="hero">
-    <div class="hero-text">
-      <div class="hero-number">001 — אומנות המטבח</div>
-      <h1>אומנות<br/>המטבח <em>בהתאמה</em><br/>אישית.</h1>
-      <div class="hero-meta">
-        <p><strong>מ-2003</strong>למעלה משני עשורים של ייצור מטבחים מותאמים אישית</p>
-        <p><strong>1,200+</strong>מטבחים שתוכננו, יוצרו והותקנו ברחבי הארץ</p>
-      </div>
-      <a class="hero-cta" href="#contact">לתיאום פגישת ייעוץ</a>
-    </div>
-    <div class="side-counter">01 / 04 — HOME</div>
-  </section>
+  <nav class="dots">
+    <a href="#p1" class="active"></a>
+    <a href="#p2"></a>
+    <a href="#p3"></a>
+    <a href="#p4"></a>
+    <a href="#p5"></a>
+    <a href="#p6"></a>
+    <a href="#p7"></a>
+  </nav>
 
-  <section id="about">
-    <div class="container">
-      <div class="intro-grid">
-        <div class="intro-img"></div>
-        <div class="intro-text">
-          <span class="label">פילוסופיה</span>
-          <h2 class="title-xl">אומנות שמחזיקה <em>שנים.</em></h2>
-          <p style="margin-top: 36px;">האומן מטבחים מתמחה בתכנון וייצור מטבחים בהתאמה אישית, מתוך שילוב של ניסיון, דיוק ותשומת לב לפרטים הקטנים ביותר.</p>
-          <p>כל מטבח נבנה מתוך הקשבה לצרכים, חשיבה פונקציונלית ועיצוב על-זמני. אנו עובדים עם חומרי גלם איכותיים, טכנולוגיות מתקדמות וגימור מוקפד, ומלווים את הלקוח באופן אישי משלב הרעיון ועד ההתקנה הסופית.</p>
+  <div class="counter">
+    <b>01</b><span class="line"></span><b>07</b>
+  </div>
 
-          <div class="stats">
-            <div class="stat"><div class="num">23</div><div class="lbl">שנות ניסיון</div></div>
-            <div class="stat"><div class="num">1.2K</div><div class="lbl">מטבחים</div></div>
-            <div class="stat"><div class="num">98%</div><div class="lbl">לקוחות חוזרים</div></div>
-          </div>
-        </div>
-      </div>
+  <!-- 01 — INTRO -->
+  <section class="panel p1" id="p1">
+    <span class="panel-num">N° 01</span>
+    <div class="center">
+      <div class="pre">EST. 2003 · אומנות המטבח</div>
+      <h1>אומנות<br>המטבח <em>בהתאמה</em><br>אישית.</h1>
+      <div class="below">↓ גלול למטה לכל הפרויקטים</div>
     </div>
   </section>
 
-  <section class="categories" id="gallery">
-    <div class="container">
-      <span class="label">— הסגנונות שלנו</span>
-      <h2 class="title-xl">שלוש שפות.<br><em>אומנות אחת.</em></h2>
+  <!-- 02 — FULL QUOTE -->
+  <section class="panel p2" id="p2">
+    <span class="panel-num">N° 02</span>
+    <div class="center">
+      <blockquote>"כל מטבח נבנה מתוך <em>הקשבה</em> לצרכים, חשיבה פונקציונלית <em>ועיצוב על-זמני</em>."</blockquote>
+      <cite>פילוסופיית האומן</cite>
+    </div>
+  </section>
 
-      <div class="cat-row">
-        <div class="cat-info">
-          <div class="cnum">01.</div>
+  <!-- 03 — GIANT NUMBER -->
+  <section class="panel p3" id="p3">
+    <span class="panel-num">N° 03</span>
+    <div class="center">
+      <div class="huge">1,200<sup style="font-size:.3em;vertical-align:super;color:#fff;">+</sup></div>
+      <div class="below"><em>מטבחים</em> שתוכננו, יוצרו והותקנו.</div>
+      <p class="small">למעלה משני עשורים של ייצור בהזמנה אישית — בליווי צמוד מהשרטוט הראשון ועד הארוחה הראשונה.</p>
+    </div>
+  </section>
+
+  <!-- 04 — TRIPTYCH CATEGORIES -->
+  <section class="panel p4" id="p4">
+    <span class="panel-num" style="position:absolute;top:60px;right:40px;">N° 04</span>
+    <div class="head">
+      <div class="lbl">— הסגנונות שלנו</div>
+      <h2>שלוש שפות. <em>אומנות אחת.</em></h2>
+    </div>
+    <div class="triptych">
+      <div class="tri-panel tri-c1">
+        <div>
+          <div class="num">01 / MODERN</div>
           <h3>מטבחים <em>מודרניים</em></h3>
-          <p>קווים נקיים, גימורי מאט עמוקים ופתרונות חכמים. אסתטיקה מינימליסטית עם פונקציונליות חסרת פשרות.</p>
-          <a href="#" class="link">לצפייה בפרויקטים ←</a>
+          <p>קווים נקיים, גימורי מאט, פתרונות חכמים ואסתטיקה מינימליסטית.</p>
         </div>
-        <div class="img"><img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&w=1400&q=80" alt=""></div>
       </div>
-
-      <div class="cat-row">
-        <div class="cat-info">
-          <div class="cnum">02.</div>
+      <div class="tri-panel tri-c2">
+        <div>
+          <div class="num">02 / CLASSIC</div>
           <h3>מטבחים <em>קלאסיים</em></h3>
-          <p>אלגנטיות נצחית, פרופורציות מדויקות וטקסטורות מסורתיות. עיצוב שאינו מתיישן ומתאים לכל בית.</p>
-          <a href="#" class="link">לצפייה בפרויקטים ←</a>
+          <p>אלגנטיות נצחית, פרופורציות מדויקות וטקסטורות עשירות.</p>
         </div>
-        <div class="img"><img src="https://images.unsplash.com/photo-1556909195-79be23e1d0d9?auto=format&fit=crop&w=1400&q=80" alt=""></div>
       </div>
-
-      <div class="cat-row">
-        <div class="cat-info">
-          <div class="cnum">03.</div>
+      <div class="tri-panel tri-c3">
+        <div>
+          <div class="num">03 / RUSTIC</div>
           <h3>מטבחים <em>כפריים</em></h3>
-          <p>חמימות, עץ אמיתי ופרטים בעבודת יד. אווירה ביתית, חמה ואותנטית למשפחה שמבלה במטבח.</p>
-          <a href="#" class="link">לצפייה בפרויקטים ←</a>
-        </div>
-        <div class="img"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80" alt=""></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="philosophy">
-    <blockquote>
-      "המטרה שלנו פשוטה — ליצור מטבח שהוא גם <em>יפה</em>, גם <em>נוח</em>, וגם <em>מרגיש נכון</em> בכל יום מחדש."
-    </blockquote>
-    <cite>— צוות האומן מטבחים</cite>
-  </section>
-
-  <section class="values" id="process">
-    <div class="val-grid">
-      <div class="val">
-        <div class="vnum">I.</div>
-        <h4>תכנון אישי</h4>
-        <p>תוכנית ייחודית המבוססת על אורח החיים של כל לקוח.</p>
-      </div>
-      <div class="val">
-        <div class="vnum">II.</div>
-        <h4>חומרי גלם</h4>
-        <p>עצים, אבן ומשטחים מהיצרנים המובילים בעולם.</p>
-      </div>
-      <div class="val">
-        <div class="vnum">III.</div>
-        <h4>גימור מוקפד</h4>
-        <p>פרטים ידניים וחיבורים מדויקים, גימור ללא פשרות.</p>
-      </div>
-      <div class="val">
-        <div class="vnum">IV.</div>
-        <h4>ליווי מלא</h4>
-        <p>מהרעיון הראשון ועד מסירת המפתח הסופית.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="testimonials">
-    <div class="container">
-      <span class="label">— לקוחות מספרים</span>
-      <h2 class="title-xl">קולות מהשטח.</h2>
-
-      <div class="test-wrap" style="margin-top: 80px;">
-        <div class="test">
-          <div class="meta">משפחת לוי<span>הרצליה · 2024</span></div>
-          <div class="quote">״חיפשנו צוות שיבין בדיוק מה אנחנו רוצים — וקיבלנו את זה. הקשב לפרטים והתוצאה הסופית עברו את הציפיות.״</div>
-          <div class="num">01</div>
-        </div>
-        <div class="test">
-          <div class="meta">דנה ויואב<span>תל אביב · 2023</span></div>
-          <div class="quote">״איכות הייצור פשוט יוצאת דופן. אחרי שלוש שנים המטבח נראה כמו ביום ההתקנה.״</div>
-          <div class="num">02</div>
-        </div>
-        <div class="test">
-          <div class="meta">אבי כהן<span>רמת השרון · 2024</span></div>
-          <div class="quote">״שירות מהשורה הראשונה. הצוות הקשיב, הציע פתרונות יצירתיים, ועמד בכל מילה בלוחות הזמנים.״</div>
-          <div class="num">03</div>
+          <p>חמימות, עץ אמיתי ופרטים בעבודת יד אותנטית.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="cta" id="contact">
-    <span class="label">— הצעד הראשון</span>
-    <h2 class="title-xl">למטבח <em>החדש שלך.</em></h2>
-    <p style="margin-top: 24px; color: var(--muted);">השאירו פרטים — ניצור איתכם קשר תוך 24 שעות.</p>
-
-    <form class="cta-form" onsubmit="event.preventDefault(); alert('תודה! ניצור איתך קשר בקרוב.');">
-      <input type="text" placeholder="שם מלא" required>
-      <input type="tel" placeholder="טלפון" required>
-      <input type="email" placeholder="אימייל">
-      <button type="submit">קביעת פגישת ייעוץ →</button>
-    </form>
+  <!-- 05 — VALUES -->
+  <section class="panel p5" id="p5">
+    <span class="panel-num">N° 05</span>
+    <div class="center">
+      <div class="head">
+        <div class="lbl">— ארבעה עקרונות</div>
+        <h2>למה <em>האומן.</em></h2>
+      </div>
+      <div class="vals">
+        <div class="v"><div class="roman">I</div><h4>תכנון אישי</h4><p>תוכנית ייחודית לאורח החיים שלכם</p></div>
+        <div class="v"><div class="roman">II</div><h4>חומרי גלם</h4><p>מהיצרנים המובילים בעולם</p></div>
+        <div class="v"><div class="roman">III</div><h4>גימור מוקפד</h4><p>פרטים ידניים, חיבורים מדויקים</p></div>
+        <div class="v"><div class="roman">IV</div><h4>ליווי מלא</h4><p>מהפגישה הראשונה ועד המסירה</p></div>
+      </div>
+    </div>
   </section>
 
-  <footer>
-    <div class="foot">
-      <div>
-        <div class="brand" style="margin-bottom: 18px;"><span>Haoman</span> kitchens</div>
-        <p>אומנות המטבח בהתאמה אישית.<br>מתכננים. מייצרים. מתקינים.</p>
+  <!-- 06 — TESTIMONIAL -->
+  <section class="panel p6" id="p6">
+    <span class="panel-num" style="color:var(--gold);">N° 06</span>
+    <div class="center">
+      <div class="lbl">— לקוחות מספרים</div>
+      <blockquote>"איכות הייצור פשוט <em>יוצאת דופן</em>. אחרי שלוש שנים המטבח נראה כמו ביום ההתקנה. אומן <em>אמיתי</em>."</blockquote>
+      <cite><b>דנה ויואב</b>תל אביב · פרויקט 2023</cite>
+    </div>
+  </section>
+
+  <!-- 07 — FORM -->
+  <section class="panel p7" id="p7">
+    <span class="panel-num">N° 07</span>
+    <div class="center">
+      <div class="lbl">— הצעד הראשון</div>
+      <h2>למטבח <em>החדש שלך.</em></h2>
+      <p>השאירו פרטים — ניצור איתכם קשר תוך 24 שעות.</p>
+
+      <form onsubmit="event.preventDefault(); alert('תודה! ניצור איתך קשר בקרוב.');">
+        <div class="row">
+          <input type="text" placeholder="שם מלא" required>
+          <input type="tel" placeholder="טלפון" required>
+        </div>
+        <input class="full" type="email" placeholder="אימייל" style="margin-top: 0;">
+        <button type="submit">קביעת פגישת ייעוץ</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- 08 — FOOTER -->
+  <section class="panel p8">
+    <div class="p8-inner">
+      <div class="big">Haoman.</div>
+      <div class="grid">
+        <div>
+          <h5>אודות</h5>
+          <p>אומנות המטבח בהתאמה אישית. מתכננים, מייצרים ומתקינים מטבחים שמחזיקים שנים.</p>
+        </div>
+        <div>
+          <h5>ניווט</h5>
+          <ul>
+            <li><a href="#p1">בית</a></li>
+            <li><a href="#p4">סגנונות</a></li>
+            <li><a href="#p7">צור קשר</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>צור קשר</h5>
+          <ul>
+            <li>03-1234567</li>
+            <li>info@haoman.co.il</li>
+            <li>הרצליה פיתוח</li>
+          </ul>
+        </div>
+        <div>
+          <h5>עקבו</h5>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Pinterest</a></li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <h5>ניווט</h5>
-        <ul>
-          <li><a href="#about">אודות</a></li>
-          <li><a href="#gallery">סגנונות</a></li>
-          <li><a href="#process">תהליך</a></li>
-          <li><a href="#contact">צור קשר</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>צור קשר</h5>
-        <ul>
-          <li>03-1234567</li>
-          <li>info@haoman.co.il</li>
-          <li>הרצליה פיתוח</li>
-        </ul>
-      </div>
-      <div>
-        <h5>עקבו</h5>
-        <ul>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">Facebook</a></li>
-          <li><a href="#">Pinterest</a></li>
-        </ul>
+      <div class="copy">
+        <span>© 2026 HAOMAN KITCHENS</span>
+        <span>אומנות המטבח · בהתאמה אישית</span>
       </div>
     </div>
-    <div class="copy">
-      <span>© 2026 HAOMAN KITCHENS</span>
-      <span>אומנות המטבח בהתאמה אישית</span>
-    </div>
-  </footer>
+  </section>
+
+  <script>
+    // active dot tracking
+    const sections = document.querySelectorAll('.panel');
+    const dots = document.querySelectorAll('.dots a');
+    const counter = document.querySelector('.counter');
+    const total = sections.length;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          const idx = [...sections].indexOf(en.target);
+          dots.forEach(d => d.classList.remove('active'));
+          if (dots[idx]) dots[idx].classList.add('active');
+          if (counter && idx < total - 1) {
+            counter.innerHTML = `<b>${String(idx+1).padStart(2,'0')}</b><span class="line"></span><b>${String(total-1).padStart(2,'0')}</b>`;
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+    sections.forEach(s => io.observe(s));
+  </script>
 
 </body>
 </html>
