@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>האומן מטבחים — 3 אופציות עיצוב</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0 !important; }
+    body {
+      font-family: 'Heebo', sans-serif;
+      background: #faf7f2;
+      color: #1a1a1a;
+      min-height: 100vh;
+      padding: 80px 40px;
+    }
+    .wrap { max-width: 1320px; margin: 0 auto; }
+    .head { text-align: center; margin-bottom: 60px; }
+    .head .eye {
+      font-size: 12px; letter-spacing: .35em; color: #b08658;
+      text-transform: uppercase; margin-bottom: 14px;
+    }
+    .head h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(38px, 5vw, 60px); font-weight: 500;
+      line-height: 1.1; margin-bottom: 14px;
+    }
+    .head h1 em { color: #b08658; font-style: italic; }
+    .head p { color: #666; font-size: 17px; max-width: 620px; margin: 0 auto; }
+
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .card {
+      background: #fff;
+      border-top: 4px solid #b08658;
+      overflow: hidden;
+      transition: transform .3s, box-shadow .3s;
+      display: flex; flex-direction: column;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,.1); }
+    .preview {
+      height: 280px;
+      display: grid; place-items: center;
+      color: #fff; position: relative;
+      overflow: hidden;
+    }
+    .p1 {
+      background:
+        linear-gradient(rgba(26,26,26,.35), rgba(26,26,26,.6)),
+        url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80') center/cover;
+    }
+    .p2 {
+      background:
+        linear-gradient(rgba(14,14,14,.6), rgba(14,14,14,.85)),
+        url('https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&w=900&q=80') center/cover;
+    }
+    .p3 {
+      background: linear-gradient(135deg, #faf7f2 0%, #f4efe7 100%);
+      color: #1a1a1a;
+    }
+    .preview .tag {
+      position: absolute; top: 16px; right: 16px;
+      padding: 6px 12px; background: rgba(0,0,0,.6);
+      font-size: 11px; letter-spacing: .25em; color: #c9a47a;
+    }
+    .p3 .tag { background: #fff; }
+    .preview .ttl {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px; font-weight: 500; text-align: center;
+      line-height: 1.1;
+    }
+    .preview .ttl em { color: #c9a47a; font-style: italic; }
+    .p3 .ttl em { color: #b08658; }
+
+    .body { padding: 28px; flex: 1; display: flex; flex-direction: column; }
+    .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px; color: #b08658; letter-spacing: .25em;
+      margin-bottom: 8px;
+    }
+    .name {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px; font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .desc { color: #555; font-size: 14.5px; margin-bottom: 22px; flex: 1; }
+    .meta {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .meta span {
+      padding: 5px 12px;
+      background: #faf7f2;
+      font-size: 12px; color: #666;
+      letter-spacing: .05em;
+    }
+    .open {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 14px 22px;
+      background: #1a1a1a; color: #fff;
+      font-size: 14px; text-decoration: none;
+      letter-spacing: .05em;
+      transition: background .25s;
+    }
+    .open:hover { background: #b08658; }
+    .open::after { content: "←"; }
+
+    .info {
+      max-width: 1320px; margin: 60px auto 0;
+      padding: 32px;
+      background: #1a1a1a; color: #ccc;
+      font-size: 14px;
+    }
+    .info strong { color: #c9a47a; display: block; margin-bottom: 10px; letter-spacing: .15em; font-size: 12px; }
+    .info ul { list-style: none; display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
+    .info li::before { content: "• "; color: #b08658; }
+
+    @media (max-width: 960px) {
+      .grid { grid-template-columns: 1fr; }
+      .info ul { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <div class="eye">— Haoman Kitchens · 3 Design Concepts</div>
+      <h1>שלוש <em>אופציות עיצוב</em> לאתר.</h1>
+      <p>אותו DNA של צבעים — שחור, זהב, קרם. שלוש שפות עיצוב שונות, ללא קצוות עגולים בשום מקום.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="preview p1">
+          <div class="tag">OPTION 01</div>
+          <div class="ttl">Heritage <em>Classic</em></div>
+        </div>
+        <div class="body">
+          <div class="num">01 / קלאסי-יוקרתי</div>
+          <h3 class="name">Heritage Classic</h3>
+          <p class="desc">קרוב למקור, מעודן ויוקרתי. Hero דרמטי במלוא המסך, רצועה שחורה עם 4 יתרונות, סקשנים מאוזנים, מסגרת זהב סביב תמונות.</p>
+          <div class="meta">
+            <span>Hero מלא מסך</span>
+            <span>שחור + זהב חם</span>
+            <span>Frank Ruhl Libre</span>
+            <span>סדר סימטרי</span>
+          </div>
+          <a class="open" href="./option-1/index.html" target="_blank">פתח אופציה 1</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview p2">
+          <div class="tag">OPTION 02</div>
+          <div class="ttl">Editorial <em>Dark</em></div>
+        </div>
+        <div class="body">
+          <div class="num">02 / מגזיני-דרמטי</div>
+          <h3 class="name">Editorial Dark</h3>
+          <p class="desc">בהשראת avivi.com. רקעים שחורים גדולים, סקשנים אסימטריים מתחלפים, טיפוגרפיה איטלית מגזינית, מספרים גדולים ורווח אוויר.</p>
+          <div class="meta">
+            <span>אסימטרי</span>
+            <span>שחור עמוק</span>
+            <span>Cormorant Garamond</span>
+            <span>Editorial Layout</span>
+          </div>
+          <a class="open" href="./option-2/index.html" target="_blank">פתח אופציה 2</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="preview p3">
+          <div class="tag">OPTION 03</div>
+          <div class="ttl">Light <em>Atelier</em></div>
+        </div>
+        <div class="body">
+          <div class="num">03 / בהיר-מינימליסטי</div>
+          <h3 class="name">Light Atelier</h3>
+          <p class="desc">רקע קרם דומיננטי, שחור לטקסט, זהב כהדגשה עדינה. נקי ומודרני, גריד מטבחים בכרטיסי תמונה, marquee וטיפוגרפיה מבוססת Playfair.</p>
+          <div class="meta">
+            <span>בהיר ואווריר</span>
+            <span>קרם + שחור</span>
+            <span>Playfair Display</span>
+            <span>Cards Layout</span>
+          </div>
+          <a class="open" href="./option-3/index.html" target="_blank">פתח אופציה 3</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="info">
+      <strong>— מה משותף ל-3 האופציות</strong>
+      <ul>
+        <li>פלטת צבעים זהה: שחור (#1a1a1a), זהב (#b08658), קרם, לבן</li>
+        <li>אפס border-radius — כל הקצוות חדים</li>
+        <li>RTL מלא בעברית + תמיכה מובייל</li>
+        <li>אותו תוכן ליבה: 3 קטגוריות, 4 יתרונות, המלצות, טופס</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

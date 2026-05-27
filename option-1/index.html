@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>האומן מטבחים — אומנות המטבח בהתאמה אישית</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&family=Frank+Ruhl+Libre:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* ===== OPTION 1 — HERITAGE CLASSIC =====
+       קרוב למקור, מעודן, יוקרתי. שחור + זהב חם.
+       אפס border-radius בכל מקום. */
+
+    :root {
+      --black: #1a1a1a;
+      --black-soft: #2a2a2a;
+      --gold: #b98e5c;
+      --gold-dark: #a07640;
+      --cream: #f5f1ea;
+      --gray-card: #f4f4f4;
+      --text: #2a2a2a;
+      --muted: #6b6b6b;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { border-radius: 0 !important; }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Heebo', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    .display { font-family: 'Frank Ruhl Libre', serif; font-weight: 500; }
+
+    /* ===== HEADER ===== */
+    header {
+      position: fixed; top: 0; right: 0; left: 0;
+      background: rgba(26,26,26,.92);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(185,142,92,.25);
+    }
+    .nav {
+      max-width: 1280px; margin: 0 auto;
+      padding: 18px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      color: #fff;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 12px;
+      letter-spacing: .04em;
+    }
+    .logo-mark {
+      width: 38px; height: 38px;
+      border: 1.5px solid var(--gold);
+      display: grid; place-items: center;
+      color: var(--gold);
+      font-weight: 800;
+      font-family: 'Frank Ruhl Libre', serif;
+    }
+    .logo-text { line-height: 1.1; font-size: 13px; letter-spacing: .25em; color: #ddd; }
+    .logo-text b { display: block; font-size: 17px; color: #fff; letter-spacing: .15em; font-weight: 600; }
+
+    nav ul { display: flex; gap: 36px; list-style: none; font-size: 15px; }
+    nav a {
+      position: relative; padding: 6px 0;
+      transition: color .2s;
+    }
+    nav a::after {
+      content: ""; position: absolute; right: 0; bottom: 0;
+      height: 2px; width: 0; background: var(--gold); transition: width .25s;
+    }
+    nav a:hover { color: var(--gold); }
+    nav a:hover::after { width: 100%; }
+
+    .nav-cta {
+      padding: 10px 22px;
+      background: var(--gold); color: #fff; font-weight: 500; font-size: 14px;
+      transition: background .2s;
+    }
+    .nav-cta:hover { background: var(--gold-dark); }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative; height: 100vh; min-height: 640px;
+      background:
+        linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.55)),
+        url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=2000&q=80') center/cover;
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+    }
+    .hero-inner { max-width: 900px; padding: 0 32px; }
+    .hero .eyebrow {
+      display: inline-block;
+      padding: 6px 18px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 13px; letter-spacing: .25em;
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: clamp(40px, 6vw, 78px);
+      font-weight: 500;
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+    .hero h1 span { color: var(--gold); display: block; }
+    .hero p {
+      max-width: 620px; margin: 0 auto 40px;
+      font-size: 17px; color: #e8e8e8;
+    }
+    .btn {
+      display: inline-block;
+      padding: 16px 38px;
+      background: var(--gold); color: #fff;
+      font-size: 15px; font-weight: 500; letter-spacing: .08em;
+      border: 1px solid var(--gold);
+      transition: all .25s;
+      cursor: pointer;
+    }
+    .btn:hover { background: transparent; color: var(--gold); }
+    .btn.ghost { background: transparent; border-color: #fff; color: #fff; }
+    .btn.ghost:hover { background: #fff; color: var(--black); }
+    .hero-scroll {
+      position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+      color: #fff; font-size: 12px; letter-spacing: .3em; opacity: .8;
+    }
+    .hero-scroll::after {
+      content: ""; display: block; width: 1px; height: 50px;
+      background: var(--gold); margin: 12px auto 0;
+    }
+
+    /* ===== SECTION BASE ===== */
+    section { padding: 110px 32px; }
+    .container { max-width: 1280px; margin: 0 auto; }
+    .section-eyebrow {
+      color: var(--gold); font-size: 13px; letter-spacing: .3em;
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 500;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      color: var(--black);
+    }
+    .section-title .accent { color: var(--gold); }
+    .divider {
+      width: 60px; height: 2px; background: var(--gold);
+      margin: 0 0 28px;
+    }
+
+    /* ===== ABOUT ===== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-text p {
+      color: #4a4a4a; margin-bottom: 16px; font-size: 16.5px;
+    }
+    .about-image {
+      position: relative;
+      height: 560px;
+      background: url('https://images.unsplash.com/photo-1556909190-eccf4a8bf97a?auto=format&fit=crop&w=1200&q=80') center/cover;
+    }
+    .about-image::before {
+      content: ""; position: absolute;
+      inset: -20px -20px 20px 20px;
+      border: 2px solid var(--gold);
+      z-index: -1;
+    }
+
+    /* ===== CATEGORIES ===== */
+    .categories {
+      background: var(--cream);
+    }
+    .cat-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 50px;
+    }
+    .cat {
+      position: relative; height: 460px; overflow: hidden;
+      cursor: pointer;
+    }
+    .cat img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .6s ease;
+    }
+    .cat:hover img { transform: scale(1.08); }
+    .cat-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,.85) 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 30px; color: #fff;
+    }
+    .cat-overlay h3 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 28px; font-weight: 500;
+      margin-bottom: 6px;
+    }
+    .cat-overlay p { font-size: 14px; opacity: .85; }
+    .cat-tag {
+      position: absolute; top: 24px; right: 24px;
+      background: var(--gold); color: #fff;
+      padding: 6px 14px; font-size: 12px; letter-spacing: .15em;
+    }
+
+    /* ===== BENEFITS (dark strip) ===== */
+    .benefits {
+      background: var(--black); color: #fff;
+      padding: 90px 32px;
+    }
+    .benefits-grid {
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+    .benefit {
+      text-align: center;
+      padding: 20px;
+      border-right: 1px solid rgba(255,255,255,.1);
+    }
+    .benefit:last-child { border-right: none; }
+    .benefit .icon {
+      width: 60px; height: 60px; margin: 0 auto 20px;
+      border: 1.5px solid var(--gold);
+      display: grid; place-items: center;
+      color: var(--gold);
+    }
+    .benefit h4 {
+      font-size: 17px; font-weight: 500; margin-bottom: 8px;
+      color: #fff;
+    }
+    .benefit p { font-size: 13.5px; color: #b8b8b8; }
+
+    /* ===== PROCESS ===== */
+    .process-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 50px;
+      border-top: 1px solid #e5e0d6;
+      border-bottom: 1px solid #e5e0d6;
+    }
+    .step {
+      padding: 36px 26px;
+      border-left: 1px solid #e5e0d6;
+    }
+    .step:first-child { border-left: none; }
+    .step-num {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 56px; color: var(--gold); line-height: 1;
+      margin-bottom: 16px; font-weight: 400;
+    }
+    .step h4 { font-size: 18px; margin-bottom: 8px; font-weight: 600; }
+    .step p { font-size: 14px; color: var(--muted); }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials { background: var(--white); text-align: center; }
+    .test-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 50px;
+      text-align: right;
+    }
+    .test-card {
+      background: var(--gray-card);
+      padding: 38px 32px;
+      position: relative;
+      border-top: 3px solid var(--gold);
+    }
+    .test-quote {
+      font-size: 60px; font-family: 'Frank Ruhl Libre', serif;
+      color: var(--gold); line-height: 0.5; margin-bottom: 24px;
+    }
+    .test-card p { font-size: 15px; color: #4a4a4a; margin-bottom: 24px; }
+    .test-author {
+      font-weight: 600; font-size: 15px;
+      padding-top: 18px; border-top: 1px solid #ddd;
+    }
+    .test-author span { display: block; color: var(--muted); font-weight: 400; font-size: 13px; margin-top: 3px; }
+
+    /* ===== CTA / FORM ===== */
+    .cta-section {
+      background:
+        linear-gradient(rgba(26,26,26,.88), rgba(26,26,26,.92)),
+        url('https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&w=2000&q=80') center/cover fixed;
+      color: #fff;
+      text-align: center;
+    }
+    .cta-section .section-title { color: #fff; }
+    .cta-section .section-eyebrow { color: var(--gold); }
+    .form {
+      max-width: 640px; margin: 40px auto 0;
+      display: grid; gap: 16px;
+      grid-template-columns: 1fr 1fr;
+    }
+    .form input {
+      width: 100%; padding: 18px 20px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.2);
+      color: #fff; font-family: inherit; font-size: 15px;
+      transition: border-color .2s;
+    }
+    .form input:focus { outline: none; border-color: var(--gold); }
+    .form input::placeholder { color: #aaa; }
+    .form button {
+      grid-column: 1 / -1;
+      padding: 18px;
+      background: var(--gold); color: #fff;
+      border: none; font-family: inherit; font-size: 16px;
+      font-weight: 500; letter-spacing: .1em; cursor: pointer;
+      transition: background .2s;
+    }
+    .form button:hover { background: var(--gold-dark); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #0f0f0f; color: #999;
+      padding: 60px 32px 28px;
+    }
+    .footer-grid {
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 50px; padding-bottom: 40px;
+      border-bottom: 1px solid #222;
+    }
+    .footer-grid h5 {
+      color: #fff; font-size: 14px; letter-spacing: .2em;
+      margin-bottom: 18px; font-weight: 500;
+    }
+    .footer-grid p, .footer-grid li { font-size: 14px; line-height: 2.1; }
+    .footer-grid ul { list-style: none; }
+    .footer-grid a:hover { color: var(--gold); }
+    .footer-bottom {
+      max-width: 1280px; margin: 28px auto 0;
+      display: flex; justify-content: space-between;
+      font-size: 12.5px; letter-spacing: .15em;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 960px) {
+      nav ul { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-image { height: 380px; }
+      .cat-grid { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+      .benefit { border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); padding-bottom: 28px; }
+      .process-grid { grid-template-columns: 1fr; }
+      .step { border-left: none; border-bottom: 1px solid #e5e0d6; }
+      .test-grid { grid-template-columns: 1fr; }
+      .form { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+      section { padding: 70px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav">
+      <a class="logo" href="#">
+        <div class="logo-mark">H</div>
+        <div class="logo-text">
+          <span>HAOMAN</span>
+          <b>האומן מטבחים</b>
+        </div>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#home">בית</a></li>
+          <li><a href="#about">אודות</a></li>
+          <li><a href="#gallery">גלריה</a></li>
+          <li><a href="#process">תהליך</a></li>
+          <li><a href="#contact">צור קשר</a></li>
+        </ul>
+      </nav>
+      <a class="nav-cta" href="#contact">תיאום פגישה</a>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <span class="eyebrow">מתכננים. מייצרים. מתקינים.</span>
+      <h1>אומנות המטבח <span>בהתאמה אישית</span></h1>
+      <p>למעלה משני עשורים שאנחנו יוצרים מטבחים שמחזיקים שנים — בתכנון פרטני, בעבודת יד מדויקת ובחומרי גלם מהמשובחים שיש.</p>
+      <a class="btn" href="#contact">לתיאום פגישת ייעוץ ←</a>
+    </div>
+    <div class="hero-scroll">SCROLL</div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="section-eyebrow">אודות האומן</p>
+          <h2 class="section-title">אומנות המטבח <span class="accent">מתחילה כאן</span></h2>
+          <div class="divider"></div>
+          <p>האומן מטבחים מתמחה בתכנון וייצור מטבחים בהתאמה אישית, מתוך שילוב של ניסיון, דיוק ותשומת לב לפרטים הקטנים ביותר. כל מטבח נבנה מתוך הקשבה לצרכים, חשיבה פונקציונלית ועיצוב על-זמני — כזה שמחזיק לאורך שנים.</p>
+          <p>אנו עובדים עם חומרי גלם איכותיים, טכנולוגיות מתקדמות וגימור מוקפד, ומלווים את הלקוח באופן אישי משלב הרעיון ועד ההתקנה הסופית.</p>
+          <p><strong>המטרה שלנו פשוטה:</strong> ליצור מטבח שהוא גם יפה, גם נוח, וגם מרגיש נכון בכל יום מחדש.</p>
+          <a class="btn" href="#gallery" style="margin-top:18px;">לצפייה בגלריה ←</a>
+        </div>
+        <div class="about-image"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="categories" id="gallery">
+    <div class="container" style="text-align:center;">
+      <p class="section-eyebrow">הסגנונות שלנו</p>
+      <h2 class="section-title">שלוש שפות עיצוב, <span class="accent">אומנות אחת</span></h2>
+      <div class="divider" style="margin: 0 auto 28px;"></div>
+
+      <div class="cat-grid">
+        <div class="cat">
+          <span class="cat-tag">מודרני</span>
+          <img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&w=900&q=80" alt="מטבח מודרני">
+          <div class="cat-overlay">
+            <h3>מטבחים מודרניים</h3>
+            <p>קווים נקיים, גימורים מאט וגבי-מינימליסטיים</p>
+          </div>
+        </div>
+        <div class="cat">
+          <span class="cat-tag">קלאסי</span>
+          <img src="https://images.unsplash.com/photo-1556909195-79be23e1d0d9?auto=format&fit=crop&w=900&q=80" alt="מטבח קלאסי">
+          <div class="cat-overlay">
+            <h3>מטבחים קלאסיים</h3>
+            <p>אלגנטיות נצחית עם פרופורציות מדויקות</p>
+          </div>
+        </div>
+        <div class="cat">
+          <span class="cat-tag">כפרי</span>
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80" alt="מטבח כפרי">
+          <div class="cat-overlay">
+            <h3>מטבחים כפריים</h3>
+            <p>חמימות, עץ אמיתי ופרטים בעבודת יד</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="benefits">
+    <div class="benefits-grid">
+      <div class="benefit">
+        <div class="icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12 9 18 21 6"/></svg>
+        </div>
+        <h4>תכנון אישי</h4>
+        <p>תוכנית ייחודית המבוססת על אורח החיים שלכם</p>
+      </div>
+      <div class="benefit">
+        <div class="icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="14"/><path d="M3 9h18M8 4v14"/></svg>
+        </div>
+        <h4>חומרי גלם איכותיים</h4>
+        <p>עצים, אבן ומשטחים מהמובילים בעולם</p>
+      </div>
+      <div class="benefit">
+        <div class="icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2 L20 7 V17 L12 22 L4 17 V7 Z"/></svg>
+        </div>
+        <h4>גימור מוקפד</h4>
+        <p>פרטים ידניים, חיבורים מדויקים, גימור ללא פשרות</p>
+      </div>
+      <div class="benefit">
+        <div class="icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        </div>
+        <h4>ליווי מלא</h4>
+        <p>מהפגישה הראשונה ועד ההתקנה האחרונה</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="container">
+      <div style="text-align:center;">
+        <p class="section-eyebrow">תהליך העבודה</p>
+        <h2 class="section-title">ארבעה שלבים. <span class="accent">תוצאה אחת.</span></h2>
+        <div class="divider" style="margin: 0 auto;"></div>
+      </div>
+
+      <div class="process-grid">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h4>פגישת ייעוץ</h4>
+          <p>היכרות, הקשבה לצרכים והבנת הסגנון והתקציב.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h4>תכנון ועיצוב</h4>
+          <p>הדמיות תלת־ממד, בחירת חומרים וצבעים.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h4>ייצור במפעל</h4>
+          <p>בנייה במפעל שלנו תחת בקרת איכות הדוקה.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <h4>התקנה ומסירה</h4>
+          <p>הרכבה מקצועית, ליטוש סופי והדרכת שימוש.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <div class="container">
+      <p class="section-eyebrow">לקוחות מספרים</p>
+      <h2 class="section-title">מה אומרים <span class="accent">הלקוחות שלנו</span></h2>
+      <div class="divider" style="margin: 0 auto;"></div>
+
+      <div class="test-grid">
+        <div class="test-card">
+          <div class="test-quote">“</div>
+          <p>חיפשנו צוות שיבין בדיוק מה אנחנו רוצים — וקיבלנו את זה. הקשב לפרטים, הליווי האישי והתוצאה הסופית עברו את הציפיות.</p>
+          <div class="test-author">משפחת לוי <span>הרצליה</span></div>
+        </div>
+        <div class="test-card">
+          <div class="test-quote">“</div>
+          <p>איכות הייצור פשוט יוצאת דופן. אחרי שלוש שנים המטבח נראה כמו ביום ההתקנה. אומן אמיתי.</p>
+          <div class="test-author">דנה ויואב <span>תל אביב</span></div>
+        </div>
+        <div class="test-card">
+          <div class="test-quote">“</div>
+          <p>שירות מהשורה הראשונה. הצוות הקשיב, הציע פתרונות יצירתיים, ועמד בכל מילה בלוחות הזמנים.</p>
+          <div class="test-author">אבי כהן <span>רמת השרון</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" id="contact">
+    <div class="container">
+      <p class="section-eyebrow">קביעת פגישת ייעוץ</p>
+      <h2 class="section-title">הצעד הראשון <span class="accent">למטבח החדש</span></h2>
+      <div class="divider" style="margin: 0 auto 12px;"></div>
+      <p style="opacity:.85;">השאירו פרטים ונחזור אליכם בהקדם.</p>
+
+      <form class="form" onsubmit="event.preventDefault(); alert('תודה! ניצור איתך קשר בקרוב.');">
+        <input type="text" placeholder="שם מלא" required>
+        <input type="tel" placeholder="טלפון" required>
+        <input type="email" placeholder="אימייל" style="grid-column:1/-1;">
+        <button type="submit">קביעת פגישת ייעוץ ←</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="margin-bottom: 18px;">
+          <div class="logo-mark">H</div>
+          <div class="logo-text"><span>HAOMAN</span><b>האומן מטבחים</b></div>
+        </div>
+        <p>אומנות המטבח בהתאמה אישית. תכנון, ייצור והתקנה תחת קורת גג אחת.</p>
+      </div>
+      <div>
+        <h5>ניווט</h5>
+        <ul>
+          <li><a href="#about">אודות</a></li>
+          <li><a href="#gallery">גלריה</a></li>
+          <li><a href="#process">תהליך</a></li>
+          <li><a href="#contact">צור קשר</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>סגנונות</h5>
+        <ul>
+          <li>מטבחים מודרניים</li>
+          <li>מטבחים קלאסיים</li>
+          <li>מטבחים כפריים</li>
+        </ul>
+      </div>
+      <div>
+        <h5>צור קשר</h5>
+        <p>03-1234567<br>info@haoman.co.il<br>הרצליה פיתוח</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 האומן מטבחים. כל הזכויות שמורות.</span>
+      <span>HAOMAN KITCHENS</span>
+    </div>
+  </footer>
+
+</body>
+</html>
